@@ -50,18 +50,13 @@ export class Blob extends Phaser.GameObjects.GameObject {
         this.scene = scene
     }
 
-    generateGeometry(x = 0, y = 0, radius = 30, color = 0xFF0000, lineColor = 0x000000) {
+    generateGeometry(radius = 20, color = 0xFF0000, lineColor = 0x000000) {
         // Store params as members
-        this.x = x
-        this.y = y
         this.color = color
         this.lineColor = lineColor
 
         // Create the graphics object
-        this.graphics = this.scene.add.graphics({
-            x: this.x,
-            y: this.y
-        })
+        this.graphics = this.scene.add.graphics({ x: 0, y: 0 });
 
         this.graphics.lineStyle(2, lineColor, 1);
 
@@ -75,11 +70,28 @@ export class Blob extends Phaser.GameObjects.GameObject {
 
         // Add a physic body to the graphics
         let matterEnabledContainer = this.scene.matter.add.gameObject(this.graphics);
-        this.body = this.scene.matter.add.circle(this.x, this.y, radius);
+        this.body = this.scene.matter.add.circle(0, 0, radius);
         matterEnabledContainer.setExistingBody(this.body);
+
+        this.body.frictionAir = 0.05;
+        this.body.friction = 0;
+        this.body.frictionStatic = 0;
+        this.body.restitution = 1;
     }
 
     setVelocity(x, y) {
-        Body.setVelocity(this.body, {x, y});
+        Body.setVelocity(this.body, { x, y });
+    }
+
+    setPosition(x, y) {
+        Body.setPosition(this.body, { x, y });
+    }
+
+    getPosition() {
+        return this.body.position;
+    }
+
+    update(time, dt) {
+        console.error('Override me');
     }
 };

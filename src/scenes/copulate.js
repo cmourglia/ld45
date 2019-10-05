@@ -1,12 +1,14 @@
 import 'phaser';
 
 import { Base } from './base';
-import { Blob } from '../blob';
+import { Player } from '../player';
+import { Agent } from '../agent';
 
 export class Copulate extends Base {
     constructor() {
         super();
         this.text = null;
+        this.blobs = [];
     }
 
     init(props) {
@@ -23,16 +25,27 @@ export class Copulate extends Base {
 
         this.createBounds()
 
-        for (let i = 0; i < 10; ++i) {
-            let b = new Blob(this);
-            b.generateGeometry();
+        let player = new Player(this);
+        player.generateGeometry();
+        player.setPosition(Phaser.Math.Between(100, 800), Phaser.Math.Between(100, 800));
+        this.blobs.push(player);
+
+        for (let i = 0; i < 100; ++i) {
+            let b = new Agent(this, player);
+            b.generateGeometry(10);
+            b.setPosition(Phaser.Math.Between(100, 800), Phaser.Math.Between(100, 800));
             b.setVelocity(Phaser.Math.Between(-10, 10), Phaser.Math.Between(-10, 10));
+            this.blobs.push(b);
         }
     }
 
-    update(_time, dt) {
+    update(time, dt) {
         if (this.enter.isDown) {
             this.scene.start("Brawl", { level: this.level })
+        }
+
+        for (let b of this.blobs) {
+            b.update(time, dt);
         }
     }
 }
