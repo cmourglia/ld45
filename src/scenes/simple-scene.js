@@ -2,24 +2,39 @@ import 'phaser';
 
 export class Blob extends Phaser.GameObjects.GameObject {
 	constructor(scene) {
-		super();
+		super(scene);
 		this.scene = scene
 	}
 
-	draw() {
+	draw(x = 0, y = 0,color = 0xFF0000, lineColor = 0x000000) {
+		// Store params as members
+		this.x = x
+		this.y = y
+		this.color = color
+		this.lineColor = lineColor
+
+		// Create the graphics object
 		this.graphics = this.scene.add.graphics({
 			x: this.x,
 			y: this.y
 		})
-		this.graphics.beginFill(0xFF0000, 1);
-		this.graphics.drawCircle(300, 300, 100);
+		this.graphics.lineStyle(5, lineColor, 1); 
+		this.graphics.fillStyle(color, 1.0);
+		this.graphics.beginPath();
 
-		let matterEnabledContainer = this.scene.matter.add.gameObject(starGraphics);
-		this.matterBody = this.scene.matter.add.circle(this.x, this.y, 40);
-		matterEnabledContainer.setExistingBody(matterBody);
+		let radius = 60
+		this.graphics.arc(0, 0, radius, 0, 2 * Math.PI);
+		this.graphics.fillPath();
+		this.graphics.strokePath();
+ 
+		// Add a physic body to the graphics
+		let matterEnabledContainer = this.scene.matter.add.gameObject(this.graphics);
+		this.matterBody = this.scene.matter.add.circle(this.x, this.y, radius);
+		matterEnabledContainer.setExistingBody(this.matterBody);
 	}
 
 	update() {
+		// Bind object, graphics and physics body position
 		this.matterBody.x = this.x
 		this.matterBody.y = this.y
 		this.graphics.x = this.x
@@ -46,19 +61,24 @@ export class SimpleScene extends Phaser.Scene {
 		this.image = this.add.image(this.x, this.y, 'poncho');
 		this.lastTime = 0;
 		
-		this.stars = []
-        for (let i = 0; i < 10; ++i) {
-            let starGraphics = this.add.graphics({
-                                                    x: Math.random() * this.sys.game.canvas.width, 
-                                                    y: Math.random() * this.sys.game.canvas.height, 
-                                                }).setScale(0.2);
-            drawStar(starGraphics, 0, 0,  5, 100, 50, 0xFFFF00, 0xFF0000);
-            this.stars.push(starGraphics)
+		// this.stars = []
+        // for (let i = 0; i < 10; ++i) {
+        //     let starGraphics = this.add.graphics({
+        //                                             x: Math.random() * this.sys.game.canvas.width, 
+        //                                             y: Math.random() * this.sys.game.canvas.height, 
+        //                                         }).setScale(0.2);
+        //     drawStar(starGraphics, 0, 0,  5, 100, 50, 0xFFFF00, 0xFF0000);
+        //     this.stars.push(starGraphics)
 
-			let matterEnabledContainer = this.matter.add.gameObject(starGraphics);
-			let matterBody = this.matter.add.circle(starGraphics.x, starGraphics.y, 40);
-			matterEnabledContainer.setExistingBody(matterBody);
-        }
+		// 	let matterEnabledContainer = this.matter.add.gameObject(starGraphics);
+		// 	let matterBody = this.matter.add.circle(starGraphics.x, starGraphics.y, 40);
+		// 	matterEnabledContainer.setExistingBody(matterBody);
+		// }
+		
+		for (let i = 0; i < 10; ++i) {
+			let b = new Blob(this)
+			b.draw()
+		}
 	}
 
 	update(_time, dt) {
