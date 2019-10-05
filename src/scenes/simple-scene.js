@@ -1,5 +1,21 @@
 import 'phaser';
 
+export class Blob extends Phaser.GameObjects.GameObject {
+	constructor(scene) {
+		super();
+		this.scene = scene
+	}
+
+	draw() {
+		this.graphics = this.scene.add.graphics
+		drawStar(this.graphics , 0, 0,  5, 100, 50, 0xFFFF00, 0xFF0000);
+	}
+
+	update() {
+		// this.matterBody = 
+	}
+};
+
 export class SimpleScene extends Phaser.Scene {
 	constructor() {
 		super();
