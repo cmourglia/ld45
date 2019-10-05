@@ -20,7 +20,7 @@ export class Title extends Phaser.Scene {
 
         // start the next level after 2.5 seconds
         this.time.addEvent({
-            delay: 2500,
+            delay: 1,
             callback: () => {
                 this.scene.start("SimpleScene")
             }
