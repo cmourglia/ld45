@@ -1,6 +1,7 @@
 import 'phaser';
 
-import { SimpleScene } from './simple-scene';
+import { Copulate } from './copulate';
+import { Brawl } from './brawl';
 
 export class Title extends Phaser.Scene {
     constructor() {
@@ -11,7 +12,8 @@ export class Title extends Phaser.Scene {
 
     preload() {
         this.load.image("playButton", `assets/play.png`)
-        this.scene.add("SimpleScene", SimpleScene, false, {});
+        this.scene.add("Copulate", Copulate, false, {});
+        this.scene.add("Brawl", Brawl, false, {});
     }
 
     create() {
@@ -22,7 +24,7 @@ export class Title extends Phaser.Scene {
         this.time.addEvent({
             delay: 1,
             callback: () => {
-                this.scene.start("SimpleScene")
+                this.scene.start("Copulate", { level: 0 })
             }
         })
     }

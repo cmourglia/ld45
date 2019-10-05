@@ -1,9 +1,10 @@
 import 'phaser'
 
 import { Title } from './scenes/title.js';
-import { SimpleScene } from './scenes/simple-scene';
+import { SimpleScene } from './scenes/copulate';
 
 new Phaser.Game({
+	backgroundColor: "#888888",
 	width: 3600,
 	height: 3600,
 	zoom: ".25",

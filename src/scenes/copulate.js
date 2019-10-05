@@ -42,7 +42,7 @@ export class Blob extends Phaser.GameObjects.GameObject {
 	}
 };
 
-export class SimpleScene extends Phaser.Scene {
+export class Copulate extends Phaser.Scene {
 	constructor() {
 		super();
 		this.text = null;
@@ -53,11 +53,18 @@ export class SimpleScene extends Phaser.Scene {
 		this.speedY = 50;
 	}
 
+	init(props) {
+		this.level = props.level
+	}
+
 	preload() {
 		this.load.image('poncho', 'assets/yolo.jpg');
 	}
 
 	create() {
+		this.add.text(0, 0, "Copulate " + this.level, { fontFamily: 'Arial', fontSize: '500px' })
+		this.enter = this.input.keyboard.addKey("ENTER")
+
 		this.image = this.add.image(this.x, this.y, 'poncho');
 		this.lastTime = 0;
 		
@@ -82,6 +89,10 @@ export class SimpleScene extends Phaser.Scene {
 	}
 
 	update(_time, dt) {
+		if (this.enter.isDown) {
+			this.scene.start("Brawl", { level: this.level })
+		}
+
 		this.x += this.speedX * (dt / 1000);
 		this.y += this.speedY * (dt / 1000);
 
@@ -101,29 +112,29 @@ export class SimpleScene extends Phaser.Scene {
 	}
 
 }
-	
-function drawStar (graphics, cx, cy, spikes, outerRadius, innerRadius, color, lineColor) {
-    var rot = Math.PI / 2 * 3;
-    var x = cx;
-    var y = cy;
-    var step = Math.PI / spikes;
-    graphics.lineStyle(10, lineColor, 1.0);
-    graphics.fillStyle(color, 1.0);
-    graphics.beginPath();
-    graphics.moveTo(cx, cy - outerRadius);
-    for (let i = 0; i < spikes; i++) {
-        x = cx + Math.cos(rot) * outerRadius;
-        y = cy + Math.sin(rot) * outerRadius;
-        graphics.lineTo(x, y);
-        rot += step;
 
-        x = cx + Math.cos(rot) * innerRadius;
-        y = cy + Math.sin(rot) * innerRadius;
-        graphics.lineTo(x, y);
-        rot += step;
-    }
-    graphics.lineTo(cx, cy - outerRadius);
-    graphics.closePath();
-    graphics.fillPath();
-    graphics.strokePath();
+function drawStar(graphics, cx, cy, spikes, outerRadius, innerRadius, color, lineColor) {
+	var rot = Math.PI / 2 * 3;
+	var x = cx;
+	var y = cy;
+	var step = Math.PI / spikes;
+	graphics.lineStyle(10, lineColor, 1.0);
+	graphics.fillStyle(color, 1.0);
+	graphics.beginPath();
+	graphics.moveTo(cx, cy - outerRadius);
+	for (let i = 0; i < spikes; i++) {
+		x = cx + Math.cos(rot) * outerRadius;
+		y = cy + Math.sin(rot) * outerRadius;
+		graphics.lineTo(x, y);
+		rot += step;
+
+		x = cx + Math.cos(rot) * innerRadius;
+		y = cy + Math.sin(rot) * innerRadius;
+		graphics.lineTo(x, y);
+		rot += step;
+	}
+	graphics.lineTo(cx, cy - outerRadius);
+	graphics.closePath();
+	graphics.fillPath();
+	graphics.strokePath();
 }
