@@ -7,6 +7,7 @@ class Brawl extends Base {
     }
 
     init(props) {
+        super.init(props)
         this.level = props.level;
         this.mate = props.mate;
     }
@@ -20,7 +21,9 @@ class Brawl extends Base {
 
     update(time, dt) {
         if (this.enter.isDown) {
-            this.scene.start('Copulate', { level: this.level + 1 });
+            this.changeScene('Copulate', {
+                level: this.level + 1,
+            });
         }
 
         super.update(time, dt);

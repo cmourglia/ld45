@@ -10,7 +10,13 @@ class Base extends Phaser.Scene {
     }
 
     init(props) {
+        console.log(props)
         this.level = props.level;
+        this.previousPlayerSpecs = props.previousPlayerSpecs
+        this.previousBlobsSpecs = props.previousBlobsSpecs
+
+        let self = this;
+        this.events.on('shutdown', () => self.onShutdown())
     }
 
     createBounds() {
@@ -28,13 +34,33 @@ class Base extends Phaser.Scene {
     create() {
         this.createBounds();
 
-        this.player = new Player(this);
+        if (!this.previousPlayerSpecs) {
+            this.previousPlayerSpecs = {
+                color: 0x0000FF,
+                size: 40,
+            }
+        }
+
+        this.player = new Player(this, this.previousPlayerSpecs);
         this.player.generateGeometry();
         this.player.setPosition({ x: Phaser.Math.Between(100, 800), y: Phaser.Math.Between(100, 800) });
         this.blobs.push(this.player);
 
+
+        if (!this.previousBlobsSpecs) {
+            this.previousBlobsSpecs = []
+        }
+
+        // generate missing blobs
+        for (let i = this.previousBlobsSpecs.length; i < 99; ++i) {
+            this.previousBlobsSpecs.push({
+                color: Phaser.Display.Color.HSVToRGB(Math.random(), .5 + Math.random() * .5, .5 + Math.random() * .5).color,
+                size: 10 + Math.random() * 30,
+            })
+        }
+
         for (let i = 0; i < 99; ++i) {
-            const b = new Agent(this);
+            const b = new Agent(this, this.previousBlobsSpecs[i]);
             b.generateGeometry(10);
             b.setPosition({ x: Phaser.Math.Between(100, 800), y: Phaser.Math.Between(100, 800) });
             this.blobs.push(b);
@@ -45,6 +71,26 @@ class Base extends Phaser.Scene {
         this.blobs.forEach((b) => {
             b.update(time, dt);
         });
+    }
+
+    changeScene(sceneName, props) {
+        props.previousPlayerSpecs = this.player.specs
+        props.previousBlobsSpecs = this.blobs.map(blob => blob.specs)
+
+
+        this.blobs.forEach(blob => {
+            blob.destroy()
+        })
+        this.blobs = []
+
+        this.scene.start(sceneName, props);
+    }
+
+    onShutdown() {
+        this.events.off('shutdown')
+        console.log(this.matter)
+        console.log("shutdown")
+
     }
 }
 

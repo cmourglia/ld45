@@ -36,7 +36,7 @@ class MateSelector extends Phaser.GameObjects.GameObject {
 
         if (this.enter.isDown) {
             if (detected) {
-                this.scene.selectMate(detected.gameObject)
+                this.scene.selectMate(detected.gameObject.parent)
             }
         }
     }

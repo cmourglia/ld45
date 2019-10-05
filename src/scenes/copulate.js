@@ -3,6 +3,8 @@ import MateSelector from '../components/mate-selector';
 
 class Copulate extends Base {
     init(props) {
+        super.init(props)
+
         this.level = props.level;
     }
 
@@ -24,7 +26,19 @@ class Copulate extends Base {
     }
 
     selectMate(mate) {
-        this.scene.start('Brawl', {
+        let playerSpecs = this.player.specs
+        let mateSpecs = mate.specs
+        this.player.specs.size = (playerSpecs.size + mateSpecs.size) / 2
+        this.player.specs.color = (playerSpecs.color + mateSpecs.color) / 2
+
+        // this.scene.start('Brawl', {
+        //     level: this.level,
+        //     mate: mate,
+        //     previousPlayerSpecs: this.player.specs,
+        //     previousBlobsSpecs: this.blobs.map(blob => blob.specs),
+        // });
+
+        this.changeScene('Brawl', {
             level: this.level,
             mate: mate,
         });
