@@ -19,7 +19,7 @@ class Player extends Blob {
         if (this.keys.down.isDown) y = 10;
         if (this.keys.up.isDown) y = -10;
 
-        this.setVelocity(x, y);
+        this.setVelocity({ x, y });
     }
 }
 

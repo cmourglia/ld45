@@ -122,12 +122,12 @@ class Blob extends Phaser.GameObjects.GameObject {
         this.body.restitution = 1;
     }
 
-    setVelocity(x, y) {
-        Body.setVelocity(this.body, { x, y });
+    setVelocity(v) {
+        Body.setVelocity(this.body, v);
     }
 
-    setPosition(x, y) {
-        Body.setPosition(this.body, { x, y });
+    setPosition(v) {
+        Body.setPosition(this.body, v);
     }
 
     getPosition() {
