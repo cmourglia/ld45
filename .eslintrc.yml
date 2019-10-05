@@ -15,6 +15,6 @@ rules: {
   linebreak-style: off,
   max-classes-per-file: off,
   no-unused-vars: [error, { argsIgnorePattern: "^_" }],
-  class-methods-use-this: [error, { exceptMethods: ["update"] }],
+  class-methods-use-this: [error, { exceptMethods: ["update", "drawOn"] }],
   max-len: [error, 100]
 }

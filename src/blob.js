@@ -1,23 +1,25 @@
 import Phaser from 'phaser';
 
+const degToRad = Math.PI / 180.0;
 const { Body } = Phaser.Physics.Matter.Matter;
 
 class Shape {
     constructor(graphics, color) {
-        this.graphics = graphics
-        this.color = color
+        this.graphics = graphics;
+        this.color = color;
     }
-    drawOn(graphics) {
-        throw "RemiCroutel";
-        console.log("drawOn");
+
+    drawOn(_graphics) {
+        throw new Error('Remi Croutel');
     }
 }
 
 class Arc extends Shape {
     constructor(graphics, color, radius) {
-        super(graphics, color)
-        this.radius = radius
+        super(graphics, color);
+        this.radius = radius;
     }
+
     drawOn(graphics) {
         graphics.moveTo(0, 0);
         graphics.beginPath();
@@ -25,10 +27,10 @@ class Arc extends Shape {
         graphics.fillStyle(this.color, 1.0);
 
         // First line
-        graphics.lineBetween(0, 0, 0, - this.radius)
+        graphics.lineBetween(0, 0, 0, -this.radius);
 
         // Second line
-        graphics.lineBetween(0, 0, this.radius, 0)
+        graphics.lineBetween(0, 0, this.radius, 0);
 
         // Arc
         graphics.arc(0, 0, this.radius, 0, -0.5 * Math.PI, true);
@@ -38,9 +40,9 @@ class Arc extends Shape {
 
 export class Quadrant {
     constructor(scene, shape) {
-        this.scene = scene
-        this.shape = shape
-        this.subQuadrants = []
+        this.scene = scene;
+        this.shape = shape;
+        this.subQuadrants = [];
     }
 
     addQuadrant(shape) {
@@ -48,9 +50,9 @@ export class Quadrant {
     }
 
     draw() {
-        this.gameObject = this.scene.add.graphics()
-        this.shape.drawOn(this.gameObject)
-        //graphics.rotateCanvas(45 * degToRad + (this.quadrantIndex + 1) * 90 * degToRad)
+        this.gameObject = this.scene.add.graphics();
+        this.shape.drawOn(this.gameObject);
+        // graphics.rotateCanvas(45 * degToRad + (this.quadrantIndex + 1) * 90 * degToRad)
     }
 
     traverse(callback) {
@@ -62,18 +64,18 @@ export class Quadrant {
 class Blob extends Phaser.GameObjects.GameObject {
     constructor(scene) {
         super(scene);
-        this.scene = scene
-        this.quadrants = []
+        this.scene = scene;
+        this.quadrants = [];
 
         // By default: 4 blue circles with radius 30
-        let colors = [
+        const colors = [
             0xFF0000,
             0x00FF00,
             0xFF00FF,
-            0xFFFF00
-        ]
+            0xFFFF00,
+        ];
         for (let i = 0; i < 4; ++i) {
-            this.quadrants.push(new Quadrant(this.scene, new Arc(this.scene, colors[i], 30)))
+            this.quadrants.push(new Quadrant(this.scene, new Arc(this.scene, colors[i], 30)));
         }
     }
 
@@ -87,11 +89,11 @@ class Blob extends Phaser.GameObjects.GameObject {
 
         // Draw the quadrants
         this.quadrants.forEach((q, i) => {
-            q.draw()
-            q.gameObject.setRotation((i * 90 - 45) * degToRad)
-        })
+            q.draw();
+            q.gameObject.setRotation((i * 90 - 45) * degToRad);
+        });
 
-        this.graphics = this.scene.add.container(0, 0, this.quadrants.map(x => x.gameObject))
+        this.graphics = this.scene.add.container(0, 0, this.quadrants.map((x) => x.gameObject));
 
         // this.graphics = this.scene.add.circle(0, 0, 10, 0xFF0000)
 
@@ -146,5 +148,3 @@ class Blob extends Phaser.GameObjects.GameObject {
 }
 
 export default Blob;
-
-const degToRad = Math.PI / 180.0
