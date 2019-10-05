@@ -22,13 +22,15 @@ class Player extends Blob {
         // this.target.depth = 10000
     }
 
-    update(_time, _dt) {
-        let { x, y } = this.rootNodule.body.velocity;
+    update(time, dt) {
+        super.update(time, dt);
 
-        if (this.keys.left.isDown) x = -2;
-        if (this.keys.right.isDown) x = 2;
-        if (this.keys.down.isDown) y = 2;
-        if (this.keys.up.isDown) y = -2;
+        let { x, y } = this.body.velocity;
+
+        if (this.keys.left.isDown) x = -10;
+        if (this.keys.right.isDown) x = 10;
+        if (this.keys.down.isDown) y = 10;
+        if (this.keys.up.isDown) y = -10;
 
         this.setVelocity({ x, y });
 

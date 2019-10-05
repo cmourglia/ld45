@@ -21,7 +21,8 @@ class Agent extends Blob {
         return closest;
     }
 
-    update(_time, _dt) {
+    update(time, dt) {
+        super.update(time, dt);
         const targetPosition = this.findNearest().getPosition();
         const currentPosition = this.getPosition();
 

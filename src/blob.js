@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import Phaser from 'phaser';
 
-const { Body, Bodies, Constraint } = Phaser.Physics.Matter.Matter;
+const { Body, Bodies } = Phaser.Physics.Matter.Matter;
 
 class Nodule {
     constructor(scene, position, type, baseSize, color = 0xff00ff, generation = 0) {
@@ -12,22 +12,17 @@ class Nodule {
         this.nodules = [];
         this.color = color;
 
-        const graphics = this.scene.add.graphics({ x: 0, y: 0 });
-        this.radius = this.baseSize / 2 ** this.generation;
+        this.graphics = this.scene.add.graphics({ x: 0, y: 0 });
+        this.radius = this.baseSize / (2 ** this.generation);
 
         // draw core
-        graphics.fillStyle(this.color);
-        graphics.fillCircle(0, 0, this.radius);
+        this.graphics.fillStyle(this.color);
+        this.graphics.fillCircle(0, 0, this.radius);
 
         // Add a physic body to the graphics
-        const matterEnabledContainer = this.scene.matter.add.gameObject(graphics);
+        // const matterEnabledContainer = this.scene.matter.add.gameObject(graphics);
         this.body = Bodies.circle(position.x, position.y, this.radius);
-        matterEnabledContainer.setExistingBody(this.body);
-
-        // this.body.frictionAir = 0;
-        this.body.friction = 0;
-        this.body.frictionStatic = 0;
-        this.body.restitution = 0;
+        // matterEnabledContainer.setExistingBody(this.body);
     }
 
     addNodule(type) {
@@ -40,29 +35,28 @@ class Nodule {
         };
 
         const position = {
-            x: 2 * this.radius * axis.x + this.body.position.x,
-            y: 2 * this.radius * axis.y + this.body.position.y,
+            x: 1.5 * this.radius * axis.x + this.body.position.x,
+            y: 1.5 * this.radius * axis.y + this.body.position.y,
         };
 
-        const nn = new Nodule(this.scene, position, type, this.baseSize, this.color, this.generation + 1);
+        const nn = new Nodule(this.scene, position, type,
+            this.baseSize, this.color, this.generation + 1);
         this.nodules.push(nn);
+    }
 
-        // Add constraints
-        const { world } = this.scene.matter;
-
-        const constraint = Constraint.create({
-            bodyA: this.body,
-            pointA: { x: axis.x * this.radius, y: axis.y * this.radius },
-            bodyB: nn.body,
-            pointB: { x: -axis.x * this.radius * 0.5, y: -axis.y * this.radius * 0.5 },
-            stiffness: 0.01,
-            damping: 0.1,
-            // distance: 0,
+    update() {
+        const { x, y } = this.body.position;
+        this.graphics.setPosition(x, y);
+        this.nodules.forEach((nodule) => {
+            nodule.update();
         });
-
-        world.add([this.body, nn.body, constraint]);
     }
 }
+
+const getBodies = (nodule, outArray) => {
+    outArray.push(nodule.body);
+    nodule.nodules.forEach((n) => { getBodies(n, outArray); });
+};
 
 class Blob extends Phaser.GameObjects.GameObject {
     constructor(scene) {
@@ -71,28 +65,38 @@ class Blob extends Phaser.GameObjects.GameObject {
     }
 
     generateGeometry(radius = 50, color = 0xFF0000) {
-        this.rootNodule = new Nodule(this.scene, { x: 250, y: 250 }, 'core', radius, color);
-        this.body = this.rootNodule.body;
+        this.rootNodule = new Nodule(this.scene, { x: 0, y: 0 }, 'core', radius, color);
 
         for (let i = 0; i < 4; ++i) {
             this.rootNodule.addNodule('spike');
         }
+
+        const bodies = [];
+        getBodies(this.rootNodule, bodies);
+        this.body = Body.create({ parts: bodies });
+        this.scene.matter.world.add(this.body);
+        this.setPosition({ x: 250, y: 250 });
+
+        this.body.frictionAir = 0.01;
+        this.body.friction = 0.1;
+        this.body.frictionStatic = 0.1;
+        this.body.restitution = 0.9;
     }
 
     setVelocity(v) {
-        Body.setVelocity(this.rootNodule.body, v);
+        Body.setVelocity(this.body, v);
     }
 
     setPosition(v) {
-        Body.setPosition(this.rootNodule.body, v);
+        Body.setPosition(this.body, v);
     }
 
     getPosition() {
-        return this.rootNodule.body.position;
+        return this.body.position;
     }
 
     update(_time, _dt) {
-        throw new Error('OVERRIDE ME DUMBASS');
+        this.rootNodule.update();
     }
 }
 
