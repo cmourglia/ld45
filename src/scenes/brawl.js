@@ -1,27 +1,31 @@
 import 'phaser';
 
-export class Brawl extends Phaser.Scene {
-	constructor() {
-		super();
-		this.text = null;
-	}
+import { Base } from './base';
 
-	init(props) {
-		this.level = props.level
-	}
+export class Brawl extends Base {
+    constructor() {
+        super();
+        this.text = null;
+    }
 
-	preload() {
-	}
+    init(props) {
+        this.level = props.level
+    }
 
-	create() {
-		this.add.text(0, 0, "Brawl "+this.level, { fontFamily: 'Arial', fontSize: '100px' })
-		this.enter = this.input.keyboard.addKey("ENTER")
+    preload() {
+    }
 
-	}
+    create() {
+        this.createBounds();
 
-	update(_time, dt) {
-		if (this.enter.isDown) {
-			this.scene.start("Copulate", { level: this.level + 1 })
-		}
-	}
+        this.add.text(0, 0, "Brawl " + this.level, { fontFamily: 'Arial', fontSize: '100px' });
+        this.enter = this.input.keyboard.addKey("ENTER");
+
+    }
+
+    update(_time, dt) {
+        if (this.enter.isDown) {
+            this.scene.start("Copulate", { level: this.level + 1 })
+        }
+    }
 }
