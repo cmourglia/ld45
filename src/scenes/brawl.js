@@ -11,16 +11,18 @@ class Brawl extends Base {
     }
 
     create() {
-        this.createBounds();
+        super.create();
 
         this.add.text(0, 0, `Brawl ${this.level}`, { fontFamily: 'Arial', fontSize: '100px' });
         this.enter = this.input.keyboard.addKey('ENTER');
     }
 
-    update(_time, _dt) {
+    update(time, dt) {
         if (this.enter.isDown) {
             this.scene.start('Copulate', { level: this.level + 1 });
         }
+
+        super.update(time, dt);
     }
 }
 

@@ -1,6 +1,14 @@
 import Phaser from 'phaser';
 
+import Player from '../player';
+import Agent from '../agent';
+
 class Base extends Phaser.Scene {
+    constructor() {
+        super();
+        this.blobs = [];
+    }
+
     init(props) {
         this.level = props.level;
     }
@@ -15,6 +23,28 @@ class Base extends Phaser.Scene {
         this.add.rectangle(width / 2, height - thickness / 2, width, thickness, 0x0);
         this.add.rectangle(thickness / 2, height / 2, thickness, height, 0x0);
         this.add.rectangle(width - thickness / 2, height / 2, thickness, height, 0x0);
+    }
+
+    create() {
+        this.createBounds();
+
+        const player = new Player(this);
+        player.generateGeometry();
+        player.setPosition({ x: Phaser.Math.Between(100, 800), y: Phaser.Math.Between(100, 800) });
+        this.blobs.push(player);
+
+        for (let i = 0; i < 99; ++i) {
+            const b = new Agent(this);
+            b.generateGeometry(10);
+            b.setPosition({ x: Phaser.Math.Between(100, 800), y: Phaser.Math.Between(100, 800) });
+            this.blobs.push(b);
+        }
+    }
+
+    update(time, dt) {
+        this.blobs.forEach((b) => {
+            b.update(time, dt);
+        });
     }
 }
 
