@@ -1,6 +1,6 @@
-import { Blob } from './blob';
+import Blob from './blob';
 
-export class Player extends Blob {
+class Player extends Blob {
     constructor(scene) {
         super(scene);
 
@@ -19,8 +19,8 @@ export class Player extends Blob {
         if (this.keys.down.isDown) y = 10;
         if (this.keys.up.isDown) y = -10;
 
-        if (x != 0 || y != 0) {
-            this.setVelocity(x, y);
-        }
+        this.setVelocity(x, y);
     }
-};
+}
+
+export default Player;

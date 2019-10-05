@@ -1,4 +1,4 @@
-import { Blob } from './blob';
+import Blob from './blob';
 
 const dot = (v, w) => v.x * w.x + v.y * w.y;
 const length = (v) => Math.sqrt(dot(v, v));
@@ -10,7 +10,7 @@ const normalize = (v) => {
     };
 };
 
-export class Agent extends Blob {
+class Agent extends Blob {
     constructor(scene, player) {
         super(scene);
         this.player = player;
@@ -28,4 +28,6 @@ export class Agent extends Blob {
         deltaPosition = normalize(deltaPosition);
         this.setVelocity(deltaPosition.x * 5, deltaPosition.y * 5);
     }
-};
+}
+
+export default Agent;

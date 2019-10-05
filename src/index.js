@@ -1,18 +1,17 @@
-import 'phaser'
+import Phaser from 'phaser';
 
-import { Title } from './scenes/title.js';
-import { SimpleScene } from './scenes/copulate';
+import Title from './scenes/title';
 
-new Phaser.Game({
-    backgroundColor: "#888888",
+const game = new Phaser.Game({
+    backgroundColor: '#888888',
     width: 900,
     height: 900,
     scene: [Title],
     physics: {
-        default: "matter",
+        default: 'matter',
         matter: {
             gravity: { y: 0 },
-            debug: true
-        }
+            debug: true,
+        },
     },
 });

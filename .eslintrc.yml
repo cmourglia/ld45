@@ -9,4 +9,12 @@ globals:
 parserOptions:
   ecmaVersion: 2018
   sourceType: module
-rules: {}
+rules: {
+  indent: [error, 4],
+  no-plusplus: off,
+  linebreak-style: off,
+  max-classes-per-file: off,
+  no-unused-vars: [error, { argsIgnorePattern: "^_" }],
+  class-methods-use-this: [error, { exceptMethods: ["update"] }],
+  max-len: [error, 100]
+}

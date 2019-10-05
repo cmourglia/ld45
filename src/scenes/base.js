@@ -1,22 +1,21 @@
-import 'phaser';
+import Phaser from 'phaser';
 
-export class Base extends Phaser.Scene {
-    constructor() {
-        super();
-    }
-
+class Base extends Phaser.Scene {
     init(props) {
-        this.level = props.level
+        this.level = props.level;
     }
 
     createBounds() {
-        let gameCanvas = this.sys.game.canvas
-        let thickness = 10
-        this.matter.world.setBounds(thickness, thickness, gameCanvas.width - 2 * thickness, gameCanvas.height - 2 * thickness, thickness * 10, true, true, true, true)
-        this.add.rectangle(gameCanvas.width / 2, thickness / 2, gameCanvas.width, thickness, "000000")
-        this.add.rectangle(gameCanvas.width / 2, gameCanvas.height - thickness / 2, gameCanvas.width, thickness, "000000")
-        this.add.rectangle(thickness / 2, gameCanvas.height / 2, thickness, gameCanvas.height, "000000")
-        this.add.rectangle(gameCanvas.width - thickness / 2, gameCanvas.height / 2, thickness, gameCanvas.height, "000000")
+        const { width, height } = this.sys.game.canvas;
+        const thickness = 10;
 
+        this.matter.world.setBounds(thickness, thickness, width - 2 * thickness,
+            height - 2 * thickness, thickness * 10);
+        this.add.rectangle(width / 2, thickness / 2, width, thickness, 0x0);
+        this.add.rectangle(width / 2, height - thickness / 2, width, thickness, 0x0);
+        this.add.rectangle(thickness / 2, height / 2, thickness, height, 0x0);
+        this.add.rectangle(width - thickness / 2, height / 2, thickness, height, 0x0);
     }
 }
+
+export default Base;

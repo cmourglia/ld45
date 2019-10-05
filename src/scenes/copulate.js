@@ -1,10 +1,10 @@
-import 'phaser';
+import Phaser from 'phaser';
 
-import { Base } from './base';
-import { Player } from '../player';
-import { Agent } from '../agent';
+import Base from './base';
+import Player from '../player';
+import Agent from '../agent';
 
-export class Copulate extends Base {
+class Copulate extends Base {
     constructor() {
         super();
         this.text = null;
@@ -12,7 +12,7 @@ export class Copulate extends Base {
     }
 
     init(props) {
-        this.level = props.level
+        this.level = props.level;
     }
 
     preload() {
@@ -20,18 +20,18 @@ export class Copulate extends Base {
     }
 
     create() {
-        this.add.text(0, 0, "Copulate " + this.level, { fontFamily: 'Arial', fontSize: '100px' })
-        this.enter = this.input.keyboard.addKey("ENTER")
+        this.add.text(0, 0, `Copulate ${this.level}`, { fontFamily: 'Arial', fontSize: '100px' });
+        this.enter = this.input.keyboard.addKey('ENTER');
 
-        this.createBounds()
+        this.createBounds();
 
-        let player = new Player(this);
+        const player = new Player(this);
         player.generateGeometry();
         player.setPosition(Phaser.Math.Between(100, 800), Phaser.Math.Between(100, 800));
         this.blobs.push(player);
 
         for (let i = 0; i < 100; ++i) {
-            let b = new Agent(this, player);
+            const b = new Agent(this, player);
             b.generateGeometry(10);
             b.setPosition(Phaser.Math.Between(100, 800), Phaser.Math.Between(100, 800));
             b.setVelocity(Phaser.Math.Between(-10, 10), Phaser.Math.Between(-10, 10));
@@ -41,11 +41,13 @@ export class Copulate extends Base {
 
     update(time, dt) {
         if (this.enter.isDown) {
-            this.scene.start("Brawl", { level: this.level })
+            this.scene.start('Brawl', { level: this.level });
         }
 
-        for (let b of this.blobs) {
+        this.blobs.forEach((b) => {
             b.update(time, dt);
-        }
+        });
     }
 }
+
+export default Copulate;
