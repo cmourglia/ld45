@@ -23,8 +23,8 @@ export class Copulate extends Phaser.Scene {
         this.matter.world.setBounds(0, 0, 900, 900);
 		
 		for (let i = 0; i < 10; ++i) {
-			let b = new Blob(this)
-			b.draw()
+            let b = new Blob(this);
+            b.generateGeometry();
 		}
 	}
 
