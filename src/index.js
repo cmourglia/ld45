@@ -7,6 +7,7 @@ const game = new Phaser.Game({
     width: 900,
     height: 900,
     scene: [Title],
+    type: Phaser.WEBGL,
     physics: {
         default: 'matter',
         matter: {

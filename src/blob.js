@@ -21,20 +21,8 @@ class Arc extends Shape {
     }
 
     drawOn(graphics) {
-        graphics.moveTo(0, 0);
-        graphics.beginPath();
-        graphics.lineStyle(0, this.color);
         graphics.fillStyle(this.color, 1.0);
-
-        // First line
-        graphics.lineBetween(0, 0, 0, -this.radius);
-
-        // Second line
-        graphics.lineBetween(0, 0, this.radius, 0);
-
-        // Arc
-        graphics.arc(0, 0, this.radius, 0, -0.5 * Math.PI, true);
-        graphics.fillPath();
+        graphics.fillRoundedRect(0, 0, this.radius, this.radius, { tl: 0, tr: 0, br: this.radius, bl: 0 })
     }
 }
 
@@ -50,9 +38,13 @@ export class Quadrant {
     }
 
     draw() {
-        this.gameObject = this.scene.add.graphics();
-        this.shape.drawOn(this.gameObject);
-        // graphics.rotateCanvas(45 * degToRad + (this.quadrantIndex + 1) * 90 * degToRad)
+        let g = this.scene.add.graphics();
+        this.shape.drawOn(g);
+        let texKey = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        g.generateTexture(texKey, 30, 30)
+        g.destroy()
+
+        this.gameObject = this.scene.add.sprite(0, 0, texKey).setOrigin(0, 0)
     }
 
     traverse(callback) {
@@ -90,7 +82,7 @@ class Blob extends Phaser.GameObjects.GameObject {
         // Draw the quadrants
         this.quadrants.forEach((q, i) => {
             q.draw();
-            q.gameObject.setRotation((i * 90 - 45) * degToRad);
+            q.gameObject.setRotation((i * 90 - 135) * degToRad);
         });
 
         this.graphics = this.scene.add.container(0, 0, this.quadrants.map((x) => x.gameObject));
