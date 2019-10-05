@@ -12,6 +12,7 @@ class Title extends Phaser.Scene {
 
     preload() {
         this.load.image('playButton', 'assets/play.png');
+
         this.scene.add('Copulate', Copulate, false, {});
         this.scene.add('Brawl', Brawl, false, {});
     }

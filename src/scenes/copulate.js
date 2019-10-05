@@ -7,6 +7,7 @@ class Copulate extends Base {
 
     preload() {
         this.load.image('poncho', 'assets/yolo.jpg');
+        this.load.image('playerTarget', 'assets/target.png')
     }
 
     create() {
