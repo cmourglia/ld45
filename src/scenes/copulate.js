@@ -1,4 +1,5 @@
 import Base from './base';
+import MateSelector from '../components/mate-selector';
 
 class Copulate extends Base {
     init(props) {
@@ -14,15 +15,19 @@ class Copulate extends Base {
         super.create();
 
         this.add.text(0, 0, `Copulate ${this.level}`, { fontFamily: 'Arial', fontSize: '100px' });
-        this.enter = this.input.keyboard.addKey('ENTER');
+
+        this.add.updateList.add(new MateSelector(this, this.player))
     }
 
     update(time, dt) {
         super.update(time, dt);
+    }
 
-        if (this.enter.isDown) {
-            this.scene.start('Brawl', { level: this.level });
-        }
+    selectMate(mate) {
+        this.scene.start('Brawl', {
+            level: this.level,
+            mate: mate,
+        });
     }
 }
 

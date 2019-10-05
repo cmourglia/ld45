@@ -28,10 +28,10 @@ class Base extends Phaser.Scene {
     create() {
         this.createBounds();
 
-        const player = new Player(this);
-        player.generateGeometry();
-        player.setPosition({ x: Phaser.Math.Between(100, 800), y: Phaser.Math.Between(100, 800) });
-        this.blobs.push(player);
+        this.player = new Player(this);
+        this.player.generateGeometry();
+        this.player.setPosition({ x: Phaser.Math.Between(100, 800), y: Phaser.Math.Between(100, 800) });
+        this.blobs.push(this.player);
 
         for (let i = 0; i < 99; ++i) {
             const b = new Agent(this);
