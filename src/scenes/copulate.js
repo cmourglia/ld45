@@ -1,4 +1,5 @@
 import Base from './base';
+import Blob from '../blob';
 import MateSelector from '../components/mate-selector';
 
 class Copulate extends Base {
@@ -11,6 +12,7 @@ class Copulate extends Base {
     preload() {
         this.load.image('poncho', 'assets/yolo.jpg');
         this.load.image('playerTarget', 'assets/target.png')
+        this.load.image('popup', 'assets/popup.png')
     }
 
     create() {
@@ -18,30 +20,54 @@ class Copulate extends Base {
 
         this.add.text(0, 0, `Copulate ${this.level}`, { fontFamily: 'Arial', fontSize: '100px' });
 
-        this.add.updateList.add(new MateSelector(this, this.player))
+        this.mateSelector = new MateSelector(this, this.player)
+        this.add.updateList.add(this.mateSelector)
     }
 
     update(time, dt) {
         super.update(time, dt);
+
+
+        if (this.enterUpAfterSelect && this.enterUpAfterSelect.isUp) {
+            this.enterDownAfterSelect = this.enterUpAfterSelect
+            this.enterUpAfterSelect = undefined
+        }
+        if (this.enterDownAfterSelect && this.enterDownAfterSelect.isDown) {
+            this.enterDownAfterSelect = undefined
+            this.changeScene('Brawl', {
+                level: this.level,
+            });
+        }
     }
 
     selectMate(mate) {
+        let oldPlayerSpecs = JSON.parse(JSON.stringify(this.player.specs))
         let playerSpecs = this.player.specs
         let mateSpecs = mate.specs
         this.player.specs.size = (playerSpecs.size + mateSpecs.size) / 2
         this.player.specs.color = (playerSpecs.color + mateSpecs.color) / 2
 
-        // this.scene.start('Brawl', {
-        //     level: this.level,
-        //     mate: mate,
-        //     previousPlayerSpecs: this.player.specs,
-        //     previousBlobsSpecs: this.blobs.map(blob => blob.specs),
-        // });
+        this.mateSelector.destroy()
 
-        this.changeScene('Brawl', {
-            level: this.level,
-            mate: mate,
-        });
+        let canvas = this.sys.canvas
+        let center = { x: canvas.width / 2, y: canvas.height / 2 }
+        this.add.image(center.x, center.y, "popup").setDisplaySize(600, 600);
+
+        const b1 = new Blob(this, oldPlayerSpecs);
+        b1.generateGeometry(false);
+        b1.setPosition({ x: center.x - 50, y: center.y - 50 });
+
+        const b2 = new Blob(this, mateSpecs);
+        b2.generateGeometry(false);
+        b2.setPosition({ x: center.x + 50, y: center.y - 50 });
+
+        const b3 = new Blob(this, this.player.specs);
+        b3.generateGeometry(false);
+        b3.setPosition({ x: center.x, y: center.y + 50 });
+
+        this.enterUpAfterSelect = this.input.keyboard.addKey('ENTER');
+
+        return
     }
 }
 

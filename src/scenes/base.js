@@ -88,9 +88,7 @@ class Base extends Phaser.Scene {
 
     onShutdown() {
         this.events.off('shutdown')
-        console.log(this.matter)
         console.log("shutdown")
-
     }
 }
 

@@ -72,7 +72,7 @@ class Blob extends Phaser.GameObjects.GameObject {
         }
     }
 
-    generateGeometry() {
+    generateGeometry(generateBody = true) {
         // Create the graphics object
         this.graphics = this.scene.add.graphics({ x: 0, y: 0 });
 
@@ -86,14 +86,18 @@ class Blob extends Phaser.GameObjects.GameObject {
         this.graphics.parent = this
 
         // Add a physic body to the graphics
-        this.matterEnabledContainer = this.scene.matter.add.gameObject(this.graphics);
-        this.body = this.scene.matter.add.circle(0, 0, this.specs.size);
-        this.matterEnabledContainer.setExistingBody(this.body);
+        if (generateBody) {
+            this.matterEnabledContainer = this.scene.matter.add.gameObject(this.graphics);
+            this.body = this.scene.matter.add.circle(0, 0, this.specs.size);
+            this.matterEnabledContainer.setExistingBody(this.body);
 
-        this.body.frictionAir = 0.05;
-        this.body.friction = 0;
-        this.body.frictionStatic = 0;
-        this.body.restitution = 1;
+            this.body.frictionAir = 0.05;
+            this.body.friction = 0;
+            this.body.frictionStatic = 0;
+            this.body.restitution = 1;
+        } else {
+            this.matterEnabledContainer = this.graphics
+        }
     }
 
     setVelocity(v) {
@@ -101,7 +105,11 @@ class Blob extends Phaser.GameObjects.GameObject {
     }
 
     setPosition(v) {
-        Body.setPosition(this.body, v);
+        if (this.body) {
+            Body.setPosition(this.body, v);
+        } else {
+            this.matterEnabledContainer.setPosition(v.x, v.y)
+        }
     }
 
     getPosition() {
@@ -113,8 +121,9 @@ class Blob extends Phaser.GameObjects.GameObject {
     }
 
     destroy() {
-        console.log("destroy")
-        this.scene.matter.world.remove(this.body);
+        if (this.body) {
+            this.scene.matter.world.remove(this.body);
+        }
         this.matterEnabledContainer.destroy()
     }
 }

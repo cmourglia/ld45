@@ -9,7 +9,6 @@ class Brawl extends Base {
     init(props) {
         super.init(props)
         this.level = props.level;
-        this.mate = props.mate;
     }
 
     create() {
