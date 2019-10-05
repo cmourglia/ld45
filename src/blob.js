@@ -72,19 +72,19 @@ class Blob extends Phaser.GameObjects.GameObject {
 
     generateGeometry(radius = 50, color = 0xFF0000) {
         this.rootNodule = new Nodule(this.scene, { x: 250, y: 250 }, 'core', radius, color);
+        this.body = this.rootNodule.body;
 
         for (let i = 0; i < 4; ++i) {
             this.rootNodule.addNodule('spike');
         }
     }
 
-    setVelocity(x, y) {
-        Body.setVelocity(this.rootNodule.body, { x, y });
-        // Body.applyForce(this.rootNodule.body, { x: 0, y: 0 }, { x, y });
+    setVelocity(v) {
+        Body.setVelocity(this.rootNodule.body, v);
     }
 
-    setPosition(x, y) {
-        Body.setPosition(this.rootNodule.body, { x, y });
+    setPosition(v) {
+        Body.setPosition(this.rootNodule.body, v);
     }
 
     getPosition() {
