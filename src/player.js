@@ -12,12 +12,12 @@ class Player extends Blob {
     }
 
     update(_time, _dt) {
-        let { x, y } = this.body.velocity;
+        let { x, y } = this.rootNodule.body.velocity;
 
-        if (this.keys.left.isDown) x = -10;
-        if (this.keys.right.isDown) x = 10;
-        if (this.keys.down.isDown) y = 10;
-        if (this.keys.up.isDown) y = -10;
+        if (this.keys.left.isDown) x = -2;
+        if (this.keys.right.isDown) x = 2;
+        if (this.keys.down.isDown) y = 2;
+        if (this.keys.up.isDown) y = -2;
 
         this.setVelocity(x, y);
     }
