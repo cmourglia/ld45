@@ -1,32 +1,35 @@
 import Blob from './blob';
 
-const dot = (v, w) => v.x * w.x + v.y * w.y;
-const length = (v) => Math.sqrt(dot(v, v));
-const normalize = (v) => {
-    const l = 1 / length(v);
-    return {
-        x: v.x * l,
-        y: v.y * l,
-    };
-};
+import Vector from './math/vector';
 
 class Agent extends Blob {
-    constructor(scene, player) {
-        super(scene);
-        this.player = player;
+    findNearest() {
+        const { blobs } = this.scene;
+        let closest = null;
+        let minDistance = Number.MAX_VALUE;
+
+        blobs.forEach((blob) => {
+            if (blob !== this) {
+                const d = Vector.distance(blob.getPosition(), this.getPosition());
+                if (d < minDistance) {
+                    minDistance = d;
+                    closest = blob;
+                }
+            }
+        });
+
+        return closest;
     }
 
     update(_time, _dt) {
-        const targetPosition = this.player.getPosition();
+        const targetPosition = this.findNearest().getPosition();
         const currentPosition = this.getPosition();
 
-        let deltaPosition = {
-            x: targetPosition.x - currentPosition.x,
-            y: targetPosition.y - currentPosition.y,
-        };
-
-        deltaPosition = normalize(deltaPosition);
-        this.setVelocity(deltaPosition.x * 5, deltaPosition.y * 5);
+        const distance = Vector.distance(targetPosition, currentPosition);
+        if (distance > 10) {
+            const dir = Vector.direction(currentPosition, targetPosition);
+            this.setVelocity(Vector.mul(dir, 1));
+        }
     }
 }
 
