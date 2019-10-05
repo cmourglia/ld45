@@ -5,9 +5,8 @@ import { SimpleScene } from './scenes/copulate';
 
 new Phaser.Game({
 	backgroundColor: "#888888",
-	width: 3600,
-	height: 3600,
-	zoom: ".25",
+	width: 900,
+	height: 900,
 	scene: [Title],
 	physics: {
 		default: "matter",

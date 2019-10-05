@@ -62,7 +62,7 @@ export class Copulate extends Phaser.Scene {
 	}
 
 	create() {
-		this.add.text(0, 0, "Copulate " + this.level, { fontFamily: 'Arial', fontSize: '500px' })
+        this.add.text(0, 0, "Copulate " + this.level, { fontFamily: 'Arial', fontSize: '100px' })
 		this.enter = this.input.keyboard.addKey("ENTER")
 
 		this.image = this.add.image(this.x, this.y, 'poncho');

@@ -11,11 +11,10 @@ export class Brawl extends Phaser.Scene {
 	}
 
 	preload() {
-		this.load.image('poncho', 'assets/yolo.jpg');
 	}
 
 	create() {
-		this.add.text(0, 0, "Brawl "+this.level, { fontFamily: 'Arial', fontSize: '500px' })
+		this.add.text(0, 0, "Brawl "+this.level, { fontFamily: 'Arial', fontSize: '100px' })
 		this.enter = this.input.keyboard.addKey("ENTER")
 
 	}
