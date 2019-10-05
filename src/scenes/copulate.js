@@ -65,8 +65,7 @@ export class Copulate extends Phaser.Scene {
         this.add.text(0, 0, "Copulate " + this.level, { fontFamily: 'Arial', fontSize: '100px' })
 		this.enter = this.input.keyboard.addKey("ENTER")
 
-		this.image = this.add.image(this.x, this.y, 'poncho');
-		this.lastTime = 0;
+        this.matter.world.setBounds(0, 0, 900, 900);
 		
 		// this.stars = []
         // for (let i = 0; i < 10; ++i) {
