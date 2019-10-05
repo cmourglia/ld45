@@ -7,12 +7,23 @@ export class Blob extends Phaser.GameObjects.GameObject {
 	}
 
 	draw() {
-		this.graphics = this.scene.add.graphics
-		drawStar(this.graphics , 0, 0,  5, 100, 50, 0xFFFF00, 0xFF0000);
+		this.graphics = this.scene.add.graphics({
+			x: this.x,
+			y: this.y
+		})
+		this.graphics.beginFill(0xFF0000, 1);
+		this.graphics.drawCircle(300, 300, 100);
+
+		let matterEnabledContainer = this.scene.matter.add.gameObject(starGraphics);
+		this.matterBody = this.scene.matter.add.circle(this.x, this.y, 40);
+		matterEnabledContainer.setExistingBody(matterBody);
 	}
 
 	update() {
-		// this.matterBody = 
+		this.matterBody.x = this.x
+		this.matterBody.y = this.y
+		this.graphics.x = this.x
+		this.graphics.y = this.y
 	}
 };
 
