@@ -7,6 +7,7 @@ public class CopulatePopup : MonoBehaviour
     public Blob Parent1;
     public Blob Parent2;
     public Blob Child;
+    public Brawl BrawlManager;
 
     public void Show(Blob parent1, Blob parent2)
     {
@@ -20,6 +21,7 @@ public class CopulatePopup : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            this.BrawlManager.gameObject.SetActive(true);
             this.gameObject.SetActive(false);
         }
     }

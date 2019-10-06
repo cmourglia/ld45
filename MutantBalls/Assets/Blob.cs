@@ -21,6 +21,14 @@ public class Blob : MonoBehaviour
         this.transform.localScale = new Vector3(this.Size, this.Size, 0);
     }
 
+    void OnGUI()
+    {
+        // doest not work , need to find x, y in screen size.
+        var style = new GUIStyle();
+        style.fontSize = 50;
+        GUI.Label(new Rect(50, 50, 100, 20), this.HP.ToString(), style);
+    }
+
     public void Hurt(int dmg)
     {
         this.HP -= dmg;
