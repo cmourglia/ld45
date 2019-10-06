@@ -12,14 +12,9 @@ public class Blob : MonoBehaviour
 
     void Start()
     {
-        this.Color = Random.ColorHSV(0, 1, .5f, 1, .5f, 1);
-        this.Size = 1 + Random.value * 4;
-        this.HP = this.Size;
-
         this.spriteRenderer = this.GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         this.spriteRenderer.color = this.Color;
