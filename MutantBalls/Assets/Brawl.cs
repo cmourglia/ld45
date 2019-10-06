@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Brawl : MonoBehaviour
 {
-    public List<HurtBlobs> Hurters;
+    void Awake()
+    {
+        this.OnDisable();
+    }
 
     void OnEnable()
     {
-        foreach (var hurter in this.Hurters)
+        foreach (var hurter in Object.FindObjectsOfType<HurtBlobs>())
         {
             hurter.Enabled = true;
         }
@@ -16,7 +19,7 @@ public class Brawl : MonoBehaviour
 
     void OnDisable()
     {
-        foreach (var hurter in this.Hurters)
+        foreach (var hurter in Object.FindObjectsOfType<HurtBlobs>())
         {
             hurter.Enabled = false;
         }

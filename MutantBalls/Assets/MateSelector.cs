@@ -11,7 +11,7 @@ public class MateSelector : MonoBehaviour
 
     private Collider2D playerCollider;
     private Collider2D collider;
-    private HashSet<Collider2D> triggers = new HashSet<Collider2D>();
+    private HashSet<Blob> triggers = new HashSet<Blob>();
 
     void Start()
     {
@@ -22,12 +22,19 @@ public class MateSelector : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other == playerCollider) { return; }
-        this.triggers.Add(other);
+
+        var blob = other.GetComponent<Blob>();
+        if (blob == null) { return; }
+
+        this.triggers.Add(blob);
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        this.triggers.Remove(other);
+        var blob = other.GetComponent<Blob>();
+        if (blob == null) { return; }
+
+        this.triggers.Remove(blob);
     }
 
     void Update()
@@ -45,7 +52,7 @@ public class MateSelector : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return))
         {
             var playerBlob = this.Player.GetComponent<Blob>();
-            var child = this.SelectPopup.Show(playerBlob, target.GetComponent<Blob>());
+            var child = this.SelectPopup.Show(playerBlob, target);
             child.CopyTo(playerBlob);
 
             this.gameObject.SetActive(false);
