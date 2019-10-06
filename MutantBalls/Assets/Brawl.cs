@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Brawl : MonoBehaviour
 {
+    public Copulate CopulateManager;
+
     void Awake()
     {
         this.OnDisable();
@@ -29,6 +31,7 @@ public class Brawl : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            this.CopulateManager.gameObject.SetActive(true);
             this.gameObject.SetActive(false);
         }
     }

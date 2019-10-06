@@ -8,15 +8,36 @@ public class BlobGenerator : MonoBehaviour
     public Bounds area = new Bounds(new Vector3(0, 0, 0), new Vector3(5, 5, 0));
     public GameObject BlobPrefab;
 
+    private List<Blob> Blobs;
 
     void Start()
     {
-        Debug.Log(area.min);
-        for (var i = 0; i < nbBlobs; i++)
-        {
-            var blobGo = Instantiate(this.BlobPrefab, new Vector3(Random.Range(area.min.x, area.max.x), Random.Range(area.min.y, area.max.y), 0), Quaternion.identity);
-            var blob = blobGo.GetComponent<Blob>();
 
+    }
+
+    public void Regenerate()
+    {
+        if (this.Blobs == null)
+        {
+            this.Blobs = new List<Blob>();
+            for (var i = 0; i < nbBlobs; i++)
+            {
+                var blobGo = Instantiate(this.BlobPrefab, new Vector3(Random.Range(area.min.x, area.max.x), Random.Range(area.min.y, area.max.y), 0), Quaternion.identity);
+                var blob = blobGo.GetComponent<Blob>();
+                blob.IsAlive = false; // so they can be generated
+                this.Blobs.Add(blob);
+            }
+        }
+
+        foreach (var blob in this.Blobs)
+        {
+            if (blob.IsAlive)
+            {
+                blob.Heal();
+                continue;
+            }
+
+            blob.IsAlive = true;
             blob.Color = Random.ColorHSV(0, 1, .5f, 1, .5f, 1);
             blob.Size = 1 + Random.value * 4;
             blob.HP = blob.Size;
@@ -24,12 +45,7 @@ public class BlobGenerator : MonoBehaviour
             blob.AppendixRight = Random.value > .5;
             blob.AppendixDown = Random.value > .5;
             blob.AppendixLeft = Random.value > .5;
+            blob.gameObject.SetActive(true);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Blob : MonoBehaviour
 {
+    public bool IsAlive = true;
     public float HP;
     public float Size;
     public Color Color;
@@ -17,10 +18,16 @@ public class Blob : MonoBehaviour
     public GameObject AppendixLeftGO;
 
     private SpriteRenderer spriteRenderer;
+    private float currentHP;
 
     void Start()
     {
         this.spriteRenderer = this.GetComponent<SpriteRenderer>();
+    }
+
+    void OnEnable()
+    {
+        currentHP = this.HP;
     }
 
     void Update()
@@ -38,20 +45,29 @@ public class Blob : MonoBehaviour
     void OnGUI()
     {
         var screenPoint = Camera.main.WorldToScreenPoint(this.transform.position);
+        var text = Mathf.Round(currentHP).ToString();
+
         var style = new GUIStyle();
         style.fontSize = 10;
         style.alignment = TextAnchor.MiddleCenter;
         style.normal.textColor = Color.white;
-        GUI.Label(new Rect(screenPoint.x - 10, Screen.height - screenPoint.y - 10, 20, 20), Mathf.Round(this.HP).ToString(), style);
+
+        GUI.Label(new Rect(screenPoint.x - 10, Screen.height - screenPoint.y - 10, 20, 20), text, style);
     }
 
     public void Hurt(int dmg)
     {
-        this.HP -= dmg;
-        if (this.HP <= 0)
+        this.currentHP -= dmg;
+        if (this.currentHP <= 0)
         {
+            this.IsAlive = false;
             this.gameObject.SetActive(false);
         }
+    }
+
+    public void Heal()
+    {
+        this.currentHP = this.HP;
     }
 
     public void CopyTo(Blob target)

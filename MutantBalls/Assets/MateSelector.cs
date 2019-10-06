@@ -53,7 +53,9 @@ public class MateSelector : MonoBehaviour
         {
             var playerBlob = this.Player.GetComponent<Blob>();
             var child = this.SelectPopup.Show(playerBlob, target);
+
             child.CopyTo(playerBlob);
+            playerBlob.Heal(); // set currentHP to newHP value
 
             this.gameObject.SetActive(false);
         }
