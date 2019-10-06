@@ -44,7 +44,10 @@ public class MateSelector : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            this.SelectPopup.Show(this.Player.GetComponent<Blob>(), target.GetComponent<Blob>());
+            var playerBlob = this.Player.GetComponent<Blob>();
+            var child = this.SelectPopup.Show(playerBlob, target.GetComponent<Blob>());
+            child.CopyTo(playerBlob);
+
             this.gameObject.SetActive(false);
         }
     }

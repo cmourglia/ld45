@@ -9,12 +9,13 @@ public class CopulatePopup : MonoBehaviour
     public Blob Child;
     public Brawl BrawlManager;
 
-    public void Show(Blob parent1, Blob parent2)
+    public Blob Show(Blob parent1, Blob parent2)
     {
         this.gameObject.SetActive(true);
         parent1.CopyTo(this.Parent1);
         parent2.CopyTo(this.Parent2);
         this.Child.MergeFrom(this.Parent1, this.Parent2);
+        return this.Child;
     }
 
     void Update()
