@@ -7,6 +7,8 @@ public class MateSelector : MonoBehaviour
 {
     public GameObject Player;
     public GameObject TargetAim;
+    public CopulatePopup SelectPopup;
+
     private Collider2D playerCollider;
     private Collider2D collider;
     private HashSet<Collider2D> triggers = new HashSet<Collider2D>();
@@ -34,11 +36,16 @@ public class MateSelector : MonoBehaviour
         if (target == null)
         {
             this.TargetAim.SetActive(false);
+            return;
         }
-        else
+
+        this.TargetAim.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, this.TargetAim.transform.position.z);
+        this.TargetAim.SetActive(true);
+
+        if (Input.GetKeyDown(KeyCode.Return))
         {
-            this.TargetAim.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, this.TargetAim.transform.position.z);
-            this.TargetAim.SetActive(true);
+            this.SelectPopup.Show(this.Player.GetComponent<Blob>(), target.GetComponent<Blob>());
+            this.gameObject.SetActive(false);
         }
     }
 }
