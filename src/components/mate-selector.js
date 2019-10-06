@@ -16,7 +16,7 @@ class MateSelector extends Phaser.GameObjects.GameObject {
         });
 
         this.target = this.scene.add.sprite(400, 600, 'playerTarget').setDisplaySize(90, 90)
-        this.target.depth = 10000
+        this.target.depth = 0
 
         this.enter = this.scene.input.keyboard.addKey('ENTER');
     }

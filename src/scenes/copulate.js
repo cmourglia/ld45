@@ -51,19 +51,22 @@ class Copulate extends Base {
 
         let canvas = this.sys.canvas
         let center = { x: canvas.width / 2, y: canvas.height / 2 }
-        this.add.image(center.x, center.y, "popup").setDisplaySize(600, 600);
+        this.add.image(center.x, center.y, "popup").setDisplaySize(canvas.width, canvas.height);
+
+        const offsetParents = { x: 140, y: 75 }
+        const offsetChildY = 145
 
         const b1 = new Blob(this, oldPlayerSpecs);
         b1.generateGeometry(false);
-        b1.setPosition({ x: center.x - 50, y: center.y - 50 });
+        b1.setPosition({ x: center.x - offsetParents.x, y: center.y - offsetParents.y });
 
         const b2 = new Blob(this, mateSpecs);
         b2.generateGeometry(false);
-        b2.setPosition({ x: center.x + 50, y: center.y - 50 });
+        b2.setPosition({ x: center.x + offsetParents.x, y: center.y - offsetParents.y });
 
         const b3 = new Blob(this, this.player.specs);
         b3.generateGeometry(false);
-        b3.setPosition({ x: center.x, y: center.y + 50 });
+        b3.setPosition({ x: center.x, y: center.y + offsetChildY });
 
         this.enterUpAfterSelect = this.input.keyboard.addKey('ENTER');
 
