@@ -48,6 +48,10 @@ public class Blob : MonoBehaviour
     public void Hurt(int dmg)
     {
         this.HP -= dmg;
+        if (this.HP <= 0)
+        {
+            this.gameObject.SetActive(false);
+        }
     }
 
     public void CopyTo(Blob target)
