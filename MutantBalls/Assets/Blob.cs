@@ -20,4 +20,9 @@ public class Blob : MonoBehaviour
         this.spriteRenderer.color = this.Color;
         this.transform.localScale = new Vector3(this.Size, this.Size, 0);
     }
+
+    public void Hurt(int dmg)
+    {
+        this.HP -= dmg;
+    }
 }
