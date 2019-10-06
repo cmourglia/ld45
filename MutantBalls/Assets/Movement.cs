@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    public float speed;
-    public float jump;
-    public GameObject rayOrigin;
-    public float rayCheckDistance;
+    public float speed = 2;
     Rigidbody2D rb;
 
     // Start is called before the first frame update
