@@ -1,4 +1,5 @@
 import Base from './base';
+import Hurter from '../components/hurter';
 
 class Brawl extends Base {
     constructor() {
@@ -7,7 +8,7 @@ class Brawl extends Base {
     }
 
     init(props) {
-        super.init(props)
+        super.init(props);
         this.level = props.level;
     }
 
@@ -16,6 +17,11 @@ class Brawl extends Base {
 
         this.add.text(0, 0, `Brawl ${this.level}`, { fontFamily: 'Arial', fontSize: '100px' });
         this.enter = this.input.keyboard.addKey('ENTER');
+
+        this.add.updateList.add(new Hurter(this, this.player));
+        // this.blobs.forEach((blob) => {
+        //     this.add.updateList.add(new Hurter(this, blob));
+        // });
     }
 
     update(time, dt) {

@@ -45,7 +45,7 @@ class Base extends Phaser.Scene {
         this.player.generateGeometry();
         this.player.setPosition({ x: Phaser.Math.Between(100, 800), y: Phaser.Math.Between(100, 800) });
         this.blobs.push(this.player);
-
+        this.add.updateList.add(this.player)
 
         if (!this.previousBlobsSpecs) {
             this.previousBlobsSpecs = []
@@ -64,6 +64,7 @@ class Base extends Phaser.Scene {
             b.generateGeometry(10);
             b.setPosition({ x: Phaser.Math.Between(100, 800), y: Phaser.Math.Between(100, 800) });
             this.blobs.push(b);
+            this.add.updateList.add(b)
         }
     }
 

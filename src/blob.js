@@ -22,7 +22,9 @@ class Arc extends Shape {
 
     drawOn(graphics) {
         graphics.fillStyle(this.color, 1.0);
-        graphics.fillRoundedRect(0, 0, this.radius, this.radius, { tl: 0, tr: 0, br: this.radius, bl: 0 })
+        graphics.fillRoundedRect(0, 0, this.radius, this.radius, {
+            tl: 0, tr: 0, br: this.radius, bl: 0,
+        });
     }
 }
 
@@ -38,13 +40,13 @@ export class Quadrant {
     }
 
     draw() {
-        let g = this.scene.add.graphics();
+        const g = this.scene.add.graphics();
         this.shape.drawOn(g);
-        let texKey = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-        g.generateTexture(texKey, 60, 60)
-        g.destroy()
+        const texKey = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        g.generateTexture(texKey, 60, 60);
+        g.destroy();
 
-        this.gameObject = this.scene.add.sprite(0, 0, texKey).setOrigin(0, 0)
+        this.gameObject = this.scene.add.sprite(0, 0, texKey).setOrigin(0, 0);
     }
 
     traverse(callback) {
@@ -58,7 +60,8 @@ class Blob extends Phaser.GameObjects.GameObject {
         super(scene);
         this.scene = scene;
         this.quadrants = [];
-        this.specs = specs
+        this.specs = specs;
+        this.life = this.specs.size;
 
         // By default: 4 blue circles with radius 30
         // const colors = [
@@ -83,7 +86,9 @@ class Blob extends Phaser.GameObjects.GameObject {
         });
 
         this.graphics = this.scene.add.container(0, 0, this.quadrants.map((x) => x.gameObject));
-        this.graphics.parent = this
+        this.graphics.parent = this;
+        this.lifeText = this.scene.add.text(0, 0, Math.round(this.life)).setOrigin(0.5, 0.5);
+        this.graphics.add(this.lifeText);
 
         // Add a physic body to the graphics
         if (generateBody) {
@@ -96,7 +101,7 @@ class Blob extends Phaser.GameObjects.GameObject {
             this.body.frictionStatic = 0;
             this.body.restitution = 1;
         } else {
-            this.matterEnabledContainer = this.graphics
+            this.matterEnabledContainer = this.graphics;
         }
     }
 
@@ -108,7 +113,7 @@ class Blob extends Phaser.GameObjects.GameObject {
         if (this.body) {
             Body.setPosition(this.body, v);
         } else {
-            this.matterEnabledContainer.setPosition(v.x, v.y)
+            this.matterEnabledContainer.setPosition(v.x, v.y);
         }
     }
 
@@ -116,15 +121,19 @@ class Blob extends Phaser.GameObjects.GameObject {
         return this.body.position;
     }
 
-    update(_time, _dt) {
-        throw new Error('OVERRIDE ME DUMBASS');
+    preUpdate(time, delta) {
+        if (this.life <= 0) {
+            this.destroy();
+            return;
+        }
+        this.lifeText.text = Math.round(this.life);
     }
 
     destroy() {
         if (this.body) {
             this.scene.matter.world.remove(this.body);
         }
-        this.matterEnabledContainer.destroy()
+        this.matterEnabledContainer.destroy();
     }
 }
 
