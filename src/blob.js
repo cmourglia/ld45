@@ -1,7 +1,10 @@
 /* eslint-disable no-underscore-dangle */
 import Phaser from 'phaser';
+import { throws } from 'assert';
 
-const { Body, Bodies } = Phaser.Physics.Matter.Matter;
+const {
+    Body, Bodies, Composite, Composites, Constraint,
+} = Phaser.Physics.Matter.Matter;
 
 class Nodule {
     constructor(scene, position, type, baseSize, color = 0xff00ff, generation = 0) {
@@ -15,6 +18,24 @@ class Nodule {
         this.graphics = this.scene.add.graphics({ x: 0, y: 0 });
         this.radius = this.baseSize / (2 ** this.generation);
 
+        // if (type === 'spike') {
+        //     // add bodies
+        //     const group = Body.nextGroup(true);
+        //     const ropeA = Composites.stack(100, 50, 8, 1, 10, 10, (x, y) => Bodies.rectangle(x, y, 50, 20, { collisionFilter: { group } }));
+        //     Composites.chain(ropeA, 0.5, 0, -0.5, 0, { stiffness: 0.8, length: 2, render: { type: 'line' } });
+
+        //     const c = Constraint.create({
+        //         bodyB: ropeA.bodies[0],
+        //         pointB: { x: -25, y: 0 },
+        //         pointA: { x: ropeA.bodies[0].position.x, y: ropeA.bodies[0].position.y },
+        //         stiffness: 0.5,
+        //     });
+        //     Composite.add(ropeA, c);
+        //     this.body = ropeA.bodies[0];
+        //     this.scene.matter.world.add([this.body, c]);
+        // } else {
+
+        this.graphics.translateCanvas(50, 50);
         // draw core
         this.graphics.fillStyle(this.color);
         this.graphics.fillCircle(0, 0, this.radius);
@@ -22,7 +43,14 @@ class Nodule {
         // Add a physic body to the graphics
         // const matterEnabledContainer = this.scene.matter.add.gameObject(graphics);
         this.body = Bodies.circle(position.x, position.y, this.radius);
+        // this.body = Bodies.rectangle(position.x - this.radius, position.y - this.radius, this.radius * 2, this.radius * 2);
         // matterEnabledContainer.setExistingBody(this.body);
+        // }
+
+        const t = String(Math.random());
+        this.graphics.generateTexture(t, 100, 100);
+        this.graphics.destroy();
+        this.graphics = this.scene.add.image(0, 0, t);
     }
 
     addNodule(type) {
