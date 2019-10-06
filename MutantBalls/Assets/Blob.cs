@@ -37,10 +37,12 @@ public class Blob : MonoBehaviour
 
     void OnGUI()
     {
-        // doest not work , need to find x, y in screen size.
+        var screenPoint = Camera.main.WorldToScreenPoint(this.transform.position);
         var style = new GUIStyle();
-        style.fontSize = 50;
-        GUI.Label(new Rect(50, 50, 100, 20), this.HP.ToString(), style);
+        style.fontSize = 10;
+        style.alignment = TextAnchor.MiddleCenter;
+        style.normal.textColor = Color.white;
+        GUI.Label(new Rect(screenPoint.x - 10, Screen.height - screenPoint.y - 10, 20, 20), Mathf.Round(this.HP).ToString(), style);
     }
 
     public void Hurt(int dmg)
