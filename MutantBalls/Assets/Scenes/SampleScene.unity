@@ -1066,6 +1066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5932297f6819f434486f75302e9b04f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 819975985}
   CopulateManager: {fileID: 673067445}
 --- !u!4 &1510200344
 Transform:
