@@ -202,6 +202,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8621361324389018685, guid: a62e1280c9c6a4140bc96b54d5d8dd4d,
+        type: 3}
+      propertyPath: armDepth
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a62e1280c9c6a4140bc96b54d5d8dd4d, type: 3}
 --- !u!1 &29122389 stripped
@@ -394,6 +399,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8621361324389018685, guid: a62e1280c9c6a4140bc96b54d5d8dd4d,
+        type: 3}
+      propertyPath: armDepth
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a62e1280c9c6a4140bc96b54d5d8dd4d, type: 3}
 --- !u!1 &1214365304 stripped
@@ -414,3 +424,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250d3334f17143b4281483187cc0f9f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reactionTimeSeconds: 2
