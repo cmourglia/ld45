@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,6 +9,10 @@ public class Brawl : MonoBehaviour
     public Blob Player;
     public Copulate CopulateManager;
     public Text Instructions;
+
+    public int MaxAliveBlobs;
+
+    private Blob[] blobs;
 
     void Awake()
     {
@@ -31,6 +35,8 @@ public class Brawl : MonoBehaviour
         }
 
         this.Instructions.text = "brawl!";
+
+        blobs = Object.FindObjectsOfType<Blob>();
     }
 
     void OnDisable()
@@ -52,5 +58,19 @@ public class Brawl : MonoBehaviour
             this.CopulateManager.gameObject.SetActive(true);
             this.gameObject.SetActive(false);
         }
+            int aliveBlobsCpt = 0;
+            foreach (var blob in blobs)
+            {
+                if (blob.IsAlive)
+                {
+                    ++aliveBlobsCpt;
+                }
+            }
+
+            if (aliveBlobsCpt < (int)((float)blobs.Length * 0.25f))
+            {
+                gameObject.SetActive(false);
+                CopulateManager.gameObject.SetActive(true);
+            }
     }
 }
