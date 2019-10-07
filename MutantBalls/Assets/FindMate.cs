@@ -7,42 +7,60 @@ using System.Linq;
 public class FindMate : MonoBehaviour
 {
     public float reactionTimeSeconds = 2.0f;
+    public float reactionTimeFleeingTarget = .5f;
 
     private Blob blob;
     private Blob target;
+    private bool isFleeing;
+    private float lastFleeingTargetTime;
     private float enabledTime;
-
-    void Start()
-    {
-        this.blob = GetComponent<Blob>();
-    }
 
     void OnEnable()
     {
+        this.blob = GetComponent<Blob>();
+
         this.enabledTime = Time.time;
+        lastFleeingTargetTime = Time.time;
+        var appendices = this.blob.AppendixRight + this.blob.AppendixLeft + this.blob.AppendixDown + this.blob.AppendixUp;
+        this.isFleeing = appendices > 8;
     }
 
     void Update()
     {
-        if (target == null || !target.IsAlive)
-        {
-            this.target = this.findTarget();
-            if (this.target == null) { return; }
-        }
-
+        // wit 2 secs before starting
         if (Time.time - enabledTime < reactionTimeSeconds) { return; }
 
-        if (this.target != null)
+        if (this.isFleeing)
         {
-            // move towards target at full speed
-            var dir = this.target.transform.position - this.transform.position;
-            dir.Normalize();
-            dir *= this.blob.Speed;
-            dir.z = 0;
-
-            this.GetComponent<Rigidbody2D>().velocity = dir;
-            this.GetComponent<Rigidbody2D>().angularVelocity = 1000.0f;
+            if (Time.time - lastFleeingTargetTime > reactionTimeFleeingTarget)
+            {
+                lastFleeingTargetTime = Time.time;
+                var closest = Blob.instances
+                    .OrderBy(x => (this.transform.position - x.transform.position).sqrMagnitude)
+                    .Where(x => x.gameObject != this.gameObject)
+                    .FirstOrDefault();
+                this.target = closest;
+            }
         }
+        else
+        {
+            if (target == null || !target.IsAlive)
+            {
+                this.target = this.findTarget();
+            }
+        }
+
+        if (this.target == null) { return; }
+
+        // move towards target at full speed
+        var dir = this.target.transform.position - this.transform.position;
+        dir.Normalize();
+        dir *= this.blob.Speed;
+        dir.z = 0;
+        if (this.isFleeing) { dir *= -1; }
+
+        this.GetComponent<Rigidbody2D>().velocity = dir;
+        this.GetComponent<Rigidbody2D>().angularVelocity = 1000.0f;
     }
 
     Blob findTarget()
