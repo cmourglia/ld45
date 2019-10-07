@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: -6408047945551523841}
   - component: {fileID: -7682289426112595464}
   - component: {fileID: 8621361324389018685}
+  - component: {fileID: 7859942597373234819}
+  - component: {fileID: -2863557604812302877}
   m_Layer: 0
   m_Name: Blob
   m_TagString: Untagged
@@ -142,10 +144,6 @@ MonoBehaviour:
   AppendixRight: 0
   AppendixDown: 0
   AppendixLeft: 0
-  AppendixUpGO: {fileID: 0}
-  AppendixRightGO: {fileID: 0}
-  AppendixDownGO: {fileID: 0}
-  AppendixLeftGO: {fileID: 0}
   Tentaculator: {fileID: 0}
 --- !u!114 &8621361324389018685
 MonoBehaviour:
@@ -163,3 +161,29 @@ MonoBehaviour:
   armDepths: 03000000030000000300000003000000
   subNodePrefab: {fileID: 4886585544540095308, guid: e6241b21fce926d4391036dfbb901570,
     type: 3}
+--- !u!114 &7859942597373234819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6230321842675834898}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f64b9e0f746b9f45944951d9118fcab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reactionTimeSeconds: 2
+--- !u!114 &-2863557604812302877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6230321842675834898}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 250d3334f17143b4281483187cc0f9f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reactionTimeSeconds: 2

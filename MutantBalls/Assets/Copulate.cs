@@ -20,6 +20,12 @@ public class Copulate : MonoBehaviour
         this.GetComponent<BlobGenerator>().Regenerate();
         this.gameObject.SetActive(false);
 
+        foreach (var mb in Object.FindObjectsOfType<FindMate>())
+        {
+            mb.enabled = true;
+        }
+
         this.Instructions.text = "pick a mate";
     }
+
 }

@@ -48,8 +48,6 @@ public class BlobGenerator : MonoBehaviour
             blob.AppendixLeft = Mathf.RoundToInt(Random.Range(1, 5));
             blob.MakeArms();
             blob.gameObject.SetActive(true);
-
-            blob.gameObject.AddComponent<Ennemy>();
         }
     }
 }

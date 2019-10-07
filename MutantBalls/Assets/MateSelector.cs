@@ -57,6 +57,11 @@ public class MateSelector : MonoBehaviour
             child.CopyTo(playerBlob);
             playerBlob.Heal(); // set currentHP to newHP value
 
+            foreach (var mb in Object.FindObjectsOfType<FindMate>())
+            {
+                mb.enabled = false;
+            }
+
             this.gameObject.SetActive(false);
         }
     }

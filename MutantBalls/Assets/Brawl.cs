@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +25,10 @@ public class Brawl : MonoBehaviour
         {
             hurter.Enabled = true;
         }
+        foreach (var mb in Object.FindObjectsOfType<Ennemy>())
+        {
+            mb.enabled = true;
+        }
 
         this.Instructions.text = "brawl!";
     }
@@ -33,6 +38,10 @@ public class Brawl : MonoBehaviour
         foreach (var hurter in Object.FindObjectsOfType<HurtBlobs>())
         {
             hurter.Enabled = false;
+        }
+        foreach (var mb in Object.FindObjectsOfType<Ennemy>())
+        {
+            mb.enabled = false;
         }
     }
 

@@ -7,7 +7,7 @@ public class HurtBlobs : MonoBehaviour
     public int Damage = 1;
     public bool Enabled;
 
-    public bool isHingedJointWith(Blob theBlob,GameObject root)
+    public bool isHingedJointWith(Blob theBlob, GameObject root)
     {
         var hjs = root.GetComponents<HingeJoint2D>();
         foreach (HingeJoint2D hj in hjs)
