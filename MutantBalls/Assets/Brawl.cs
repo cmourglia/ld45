@@ -69,12 +69,6 @@ public class Brawl : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            copulateTimerStarted = true;
-            copulateTimer = 3.0f;
-        }
-
         if (this.copulateTimerStarted)
         {
             this.Instructions.text = "copulate in " + ((int)copulateTimer + 1) + "...";

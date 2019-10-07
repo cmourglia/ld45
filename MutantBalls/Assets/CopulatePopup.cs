@@ -12,14 +12,16 @@ public class CopulatePopup : MonoBehaviour
     public Blob Show(Blob parent1, Blob parent2)
     {
         this.gameObject.SetActive(true);
+        Time.timeScale = 0;
+
         parent1.CopyTo(this.Parent1);
         parent2.CopyTo(this.Parent2);
         this.Child.MergeFrom(this.Parent1, this.Parent2);
-        
+
         this.Parent1.Heal();
         this.Parent2.Heal();
         this.Child.Heal();
-        
+
         return this.Child;
     }
 
@@ -27,6 +29,7 @@ public class CopulatePopup : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            Time.timeScale = 1;
             this.BrawlManager.gameObject.SetActive(true);
             this.gameObject.SetActive(false);
         }
