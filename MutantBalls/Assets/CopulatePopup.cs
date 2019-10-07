@@ -15,6 +15,11 @@ public class CopulatePopup : MonoBehaviour
         parent1.CopyTo(this.Parent1);
         parent2.CopyTo(this.Parent2);
         this.Child.MergeFrom(this.Parent1, this.Parent2);
+        
+        this.Parent1.Heal();
+        this.Parent2.Heal();
+        this.Child.Heal();
+        
         return this.Child;
     }
 
