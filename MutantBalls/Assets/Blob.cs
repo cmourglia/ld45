@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Blob : MonoBehaviour
 {
+    public static List<Blob> instances = new List<Blob>();
+
     public bool IsAlive = true;
     public float HP;
     public float Size;
     public Color Color;
+    public float Speed = 5.0f;
+
     public bool AppendixUp;
     public bool AppendixRight;
     public bool AppendixDown;
@@ -23,6 +27,12 @@ public class Blob : MonoBehaviour
     void Start()
     {
         this.spriteRenderer = this.GetComponent<SpriteRenderer>();
+        Blob.instances.Add(this);
+    }
+
+    private void OnDestroy()
+    {
+        Blob.instances.Remove(this);
     }
 
     void OnEnable()

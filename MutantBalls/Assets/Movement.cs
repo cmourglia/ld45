@@ -11,6 +11,9 @@ public class Movement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        if (GetComponent<Blob>())
+            speed = GetComponent<Blob>().Speed;
     }
 
     // Update is called once per frame
