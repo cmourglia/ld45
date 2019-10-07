@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Brawl : MonoBehaviour
 {
+    public Blob Player;
     public Copulate CopulateManager;
 
     void Awake()
@@ -13,6 +14,10 @@ public class Brawl : MonoBehaviour
 
     void OnEnable()
     {
+        // should probably not be here
+        this.Player.Heal();
+        this.Player.MakeArms();
+
         foreach (var hurter in Object.FindObjectsOfType<HurtBlobs>())
         {
             hurter.Enabled = true;

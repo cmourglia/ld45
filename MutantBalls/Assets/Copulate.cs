@@ -11,6 +11,9 @@ public class Copulate : MonoBehaviour
     void OnEnable()
     {
         this.Player.Heal();
+        // should probably not be here
+        this.Player.MakeArms();
+
         this.MateSelector.gameObject.SetActive(true);
         this.GetComponent<BlobGenerator>().Regenerate();
         this.gameObject.SetActive(false);

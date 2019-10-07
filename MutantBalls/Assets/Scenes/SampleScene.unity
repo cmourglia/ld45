@@ -1337,6 +1337,26 @@ PrefabInstance:
       propertyPath: Speed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: -7682289426112595464, guid: a62e1280c9c6a4140bc96b54d5d8dd4d,
+        type: 3}
+      propertyPath: AppendixUp
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7682289426112595464, guid: a62e1280c9c6a4140bc96b54d5d8dd4d,
+        type: 3}
+      propertyPath: AppendixRight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7682289426112595464, guid: a62e1280c9c6a4140bc96b54d5d8dd4d,
+        type: 3}
+      propertyPath: AppendixDown
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7682289426112595464, guid: a62e1280c9c6a4140bc96b54d5d8dd4d,
+        type: 3}
+      propertyPath: AppendixLeft
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8621361324389018685, guid: a62e1280c9c6a4140bc96b54d5d8dd4d,
         type: 3}
       propertyPath: armDepth

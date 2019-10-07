@@ -41,10 +41,11 @@ public class BlobGenerator : MonoBehaviour
             blob.Color = Random.ColorHSV(0, 1, .5f, 1, .5f, 1);
             blob.Size = 1 + Random.value * 4;
             blob.HP = blob.Size;
-            blob.AppendixUp = Random.value > .5;
-            blob.AppendixRight = Random.value > .5;
-            blob.AppendixDown = Random.value > .5;
-            blob.AppendixLeft = Random.value > .5;
+            blob.AppendixUp = Mathf.RoundToInt(Random.Range(1, 5));
+            blob.AppendixRight = Mathf.RoundToInt(Random.Range(1, 5));
+            blob.AppendixDown = Mathf.RoundToInt(Random.Range(1, 5));
+            blob.AppendixLeft = Mathf.RoundToInt(Random.Range(1, 5));
+            blob.MakeArms();
             blob.gameObject.SetActive(true);
         }
     }

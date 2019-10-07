@@ -5,18 +5,16 @@ using UnityEngine;
 public class Tentaculator : MonoBehaviour
 {
     public int arms = 4;
-    public int armDepth = 3;
+    public int[] armDepths = new int[] { 3, 3, 3, 3 };
     public GameObject subNodePrefab;
 
-    private List<HingeJoint2D> _hinges;
-    private List<GameObject> _armNodes;
+    private List<HingeJoint2D> _hinges = new List<HingeJoint2D>();
+    private List<GameObject> _armNodes = new List<GameObject>();
     private Vector3 _lastScale;
 
     // Start is called before the first frame update
     void Start()
     {
-        _armNodes = new List<GameObject>();
-        _hinges = new List<HingeJoint2D>();
         _lastScale = this.transform.localScale;
         makeArms();
     }
@@ -31,7 +29,7 @@ public class Tentaculator : MonoBehaviour
         }
     }
 
-    void makeArms()
+    public void makeArms()
     {
         _armNodes.ForEach(Destroy);
         _hinges.ForEach(Destroy);
@@ -43,6 +41,9 @@ public class Tentaculator : MonoBehaviour
         float scale = this.transform.localScale.x * 0.05f;
         for (int i = 0; i < arms; ++i)
         {
+            if (armDepths.Length < i + 1) { break; }
+            var armDepth = armDepths[i];
+
             var hj = this.gameObject.AddComponent<HingeJoint2D>();
             _hinges.Add(hj);
 
@@ -70,7 +71,7 @@ public class Tentaculator : MonoBehaviour
             var sradius = subNodePrefab.GetComponent<CircleCollider2D>().radius;
             for (int j = 0; j < armDepth; ++j)
             {
-                var sno = Instantiate(subNodePrefab, pos + (j+1) * 2.0f * sradius * dir.normalized /** scale / 5*/, Quaternion.identity);
+                var sno = Instantiate(subNodePrefab, pos + (j + 1) * 2.0f * sradius * dir.normalized /** scale / 5*/, Quaternion.identity);
                 snodes.Add(sno);
                 _armNodes.Add(sno);
             }
@@ -117,9 +118,9 @@ public class Tentaculator : MonoBehaviour
 
     static Vector3 GetDirection(int i)
     {
-        return i == 0 ? new Vector3(1, 0, 0)  :
-               i == 1 ? new Vector3(0, 1, 0)  :
+        return i == 0 ? new Vector3(1, 0, 0) :
+               i == 1 ? new Vector3(0, 1, 0) :
                i == 2 ? new Vector3(-1, 0, 0) :
-                        new Vector3(0, -1, 0) ;
+                        new Vector3(0, -1, 0);
     }
 }

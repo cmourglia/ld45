@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Tentaculator))]
 public class Blob : MonoBehaviour
 {
     public static List<Blob> instances = new List<Blob>();
@@ -12,14 +13,11 @@ public class Blob : MonoBehaviour
     public Color Color;
     public float Speed = 5.0f;
 
-    public bool AppendixUp;
-    public bool AppendixRight;
-    public bool AppendixDown;
-    public bool AppendixLeft;
-    public GameObject AppendixUpGO;
-    public GameObject AppendixRightGO;
-    public GameObject AppendixDownGO;
-    public GameObject AppendixLeftGO;
+    public int AppendixUp;
+    public int AppendixRight;
+    public int AppendixDown;
+    public int AppendixLeft;
+    public Tentaculator Tentaculator;
 
     private SpriteRenderer spriteRenderer;
     private float currentHP;
@@ -37,17 +35,24 @@ public class Blob : MonoBehaviour
 
     void OnEnable()
     {
-        currentHP = this.HP;
+        this.Heal();
+    }
+
+    public void MakeArms()
+    {
+        var tentaculator = this.GetComponent<Tentaculator>();
+        tentaculator.arms = 4;
+        tentaculator.armDepths = new int[]{
+            this.AppendixUp,
+            this.AppendixRight,
+            this.AppendixDown,
+            this.AppendixLeft,
+        };
+        tentaculator.makeArms();
     }
 
     void Update()
     {
-        // should not be done every frame
-        this.AppendixUpGO.SetActive(this.AppendixUp);
-        this.AppendixRightGO.SetActive(this.AppendixRight);
-        this.AppendixDownGO.SetActive(this.AppendixDown);
-        this.AppendixLeftGO.SetActive(this.AppendixLeft);
-
         this.spriteRenderer.color = this.Color;
         this.transform.localScale = new Vector3(this.Size, this.Size, 1);
     }
@@ -97,9 +102,9 @@ public class Blob : MonoBehaviour
         this.Size = (parent1.Size + parent2.Size) / 2;
         this.Color = Color.Lerp(parent1.Color, parent2.Color, .5f);
 
-        this.AppendixUp = parent1.AppendixUp || parent2.AppendixUp;
-        this.AppendixRight = parent1.AppendixRight || parent2.AppendixRight;
-        this.AppendixDown = parent1.AppendixDown || parent2.AppendixDown;
-        this.AppendixLeft = parent1.AppendixLeft || parent2.AppendixLeft;
+        this.AppendixUp = (parent1.AppendixUp + parent2.AppendixUp) / 2;
+        this.AppendixRight = (parent1.AppendixRight + parent2.AppendixRight) / 2;
+        this.AppendixDown = (parent1.AppendixDown + parent2.AppendixDown) / 2;
+        this.AppendixLeft = (parent1.AppendixLeft + parent2.AppendixLeft) / 2;
     }
 }
