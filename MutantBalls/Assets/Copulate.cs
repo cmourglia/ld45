@@ -9,6 +9,9 @@ public class Copulate : MonoBehaviour
     public Blob Player;
     public MateSelector MateSelector;
     public Text Instructions;
+    public Text LoopNumber;
+
+    int loopNumber = 0;
 
     void OnEnable()
     {
@@ -26,6 +29,8 @@ public class Copulate : MonoBehaviour
         }
 
         this.Instructions.text = "pick a mate";
+        this.loopNumber++;
+        this.LoopNumber.text = $"loop #{this.loopNumber}";
     }
 
 }

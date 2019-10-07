@@ -57,6 +57,12 @@ public class Brawl : MonoBehaviour
 
     void Update()
     {
+        if (!this.Player.IsAlive)
+        {
+            this.Instructions.text = "loser.";
+            return;
+        }
+
         if (copulateTimerStarted)
         {
             copulateTimer -= Time.deltaTime;
@@ -72,10 +78,6 @@ public class Brawl : MonoBehaviour
         if (this.copulateTimerStarted)
         {
             this.Instructions.text = "copulate in " + ((int)copulateTimer + 1) + "...";
-        }
-        else if (!this.Player.IsAlive)
-        {
-            this.Instructions.text = "loser.";
         }
         else
         {
