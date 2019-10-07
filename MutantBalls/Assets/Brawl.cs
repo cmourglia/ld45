@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -58,6 +58,13 @@ public class Brawl : MonoBehaviour
             this.CopulateManager.gameObject.SetActive(true);
             this.gameObject.SetActive(false);
         }
+
+        if (!this.Player.IsAlive)
+        {
+            this.Instructions.text = "loser.";
+        }
+        else
+        {
             int aliveBlobsCpt = 0;
             foreach (var blob in blobs)
             {
@@ -72,5 +79,6 @@ public class Brawl : MonoBehaviour
                 gameObject.SetActive(false);
                 CopulateManager.gameObject.SetActive(true);
             }
+        }
     }
 }
