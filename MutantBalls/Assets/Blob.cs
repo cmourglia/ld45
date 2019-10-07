@@ -39,7 +39,7 @@ public class Blob : MonoBehaviour
         this.AppendixLeftGO.SetActive(this.AppendixLeft);
 
         this.spriteRenderer.color = this.Color;
-        this.transform.localScale = new Vector3(this.Size, this.Size, 0);
+        this.transform.localScale = new Vector3(this.Size, this.Size, 1);
     }
 
     void OnGUI()

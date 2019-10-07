@@ -658,8 +658,8 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: -15
     m_UpperAngle: 15
---- !u!233 &-7675377395574098036
-HingeJoint2D:
+--- !u!114 &7991501320686828535
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
