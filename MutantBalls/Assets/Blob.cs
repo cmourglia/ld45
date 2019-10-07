@@ -90,6 +90,7 @@ public class Blob : MonoBehaviour
         target.HP = this.HP;
         target.Size = this.Size;
         target.Color = this.Color;
+        target.Speed = this.Speed;
         target.AppendixUp = this.AppendixUp;
         target.AppendixRight = this.AppendixRight;
         target.AppendixDown = this.AppendixDown;
@@ -100,6 +101,8 @@ public class Blob : MonoBehaviour
     {
         this.HP = (parent1.HP + parent2.HP) / 2;
         this.Size = (parent1.Size + parent2.Size) / 2;
+        this.Speed = (parent1.Speed + parent2.Speed) / 2;
+
         this.Color = Color.Lerp(parent1.Color, parent2.Color, .5f);
 
         this.AppendixUp = (parent1.AppendixUp + parent2.AppendixUp) / 2;
