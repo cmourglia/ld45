@@ -39,6 +39,7 @@ public class BlobGenerator : MonoBehaviour
 
             blob.IsAlive = true;
             blob.Color = Random.ColorHSV(0, 1, .5f, 1, .5f, 1);
+            blob.Speed = Random.Range(3, 7);
             blob.Size = 4 + Random.value * 4;
             blob.HP = blob.Size;
             blob.AppendixUp = Mathf.RoundToInt(Random.Range(1, 5));
