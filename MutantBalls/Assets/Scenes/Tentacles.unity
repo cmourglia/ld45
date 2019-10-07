@@ -175,10 +175,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 11
-  jump: 0
-  rayOrigin: {fileID: 0}
-  rayCheckDistance: 0
-  ModeBeauGosse: 0
 --- !u!212 &103785928
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -271,9 +267,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b68a4ee4adcf5114d851ea6036139f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsAlive: 1
   HP: 10
   Size: 5
   Color: {r: 0.4235294, g: 0.67004687, b: 1, a: 1}
+  AppendixUp: 0
+  AppendixRight: 0
+  AppendixDown: 0
+  AppendixLeft: 0
+  AppendixUpGO: {fileID: 0}
+  AppendixRightGO: {fileID: 0}
+  AppendixDownGO: {fileID: 0}
+  AppendixLeftGO: {fileID: 0}
 --- !u!1 &1176797348
 GameObject:
   m_ObjectHideFlags: 0
