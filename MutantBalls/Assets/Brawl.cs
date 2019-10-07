@@ -14,6 +14,9 @@ public class Brawl : MonoBehaviour
 
     private Blob[] blobs;
 
+    private float copulateTimer;
+    private bool copulateTimerStarted;
+
     void Awake()
     {
         this.OnDisable();
@@ -37,6 +40,7 @@ public class Brawl : MonoBehaviour
         this.Instructions.text = "brawl!";
 
         blobs = Object.FindObjectsOfType<Blob>();
+        copulateTimerStarted = false;
     }
 
     void OnDisable()
@@ -53,13 +57,29 @@ public class Brawl : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (copulateTimerStarted)
         {
-            this.CopulateManager.gameObject.SetActive(true);
-            this.gameObject.SetActive(false);
+            copulateTimer -= Time.deltaTime;
+            if (copulateTimer <= 0.0f)
+            {
+                copulateTimer = 0.0f;
+                gameObject.SetActive(false);
+                CopulateManager.gameObject.SetActive(true);
+                return;
+            }
         }
 
-        if (!this.Player.IsAlive)
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            copulateTimerStarted = true;
+            copulateTimer = 3.0f;
+        }
+
+        if (this.copulateTimerStarted)
+        {
+            this.Instructions.text = "copulate in " + ((int)copulateTimer + 1) + "...";
+        }
+        else if (!this.Player.IsAlive)
         {
             this.Instructions.text = "loser.";
         }
@@ -76,8 +96,8 @@ public class Brawl : MonoBehaviour
 
             if (aliveBlobsCpt < (int)((float)blobs.Length * 0.25f))
             {
-                gameObject.SetActive(false);
-                CopulateManager.gameObject.SetActive(true);
+                copulateTimerStarted = true;
+                copulateTimer = 3.0f;
             }
         }
     }
