@@ -29,6 +29,12 @@ public class Tentaculator : MonoBehaviour
         }
     }
 
+    public void destroyArms()
+    {
+        _armNodes.ForEach(Destroy);
+        _hinges.ForEach(Destroy);
+    }
+
     public void makeArms()
     {
         _armNodes.ForEach(Destroy);
@@ -60,6 +66,7 @@ public class Tentaculator : MonoBehaviour
 
             hj.connectedBody = rb2;
             hj.useLimits = true;
+            hj.breakForce = Mathf.Infinity;
 
             var jj = new JointAngleLimits2D();
             jj.min = 0.0f;
@@ -82,6 +89,7 @@ public class Tentaculator : MonoBehaviour
                 var phj = no.AddComponent<HingeJoint2D>();
                 _hinges.Add(phj);
                 phj.useLimits = true;
+                phj.breakForce = Mathf.Infinity;
 
                 var sno = snodes[0];
                 var srb = sno.GetComponent<Rigidbody2D>();
@@ -108,6 +116,7 @@ public class Tentaculator : MonoBehaviour
                 sjj.min = -25.0f;
                 sjj.max = 25.0f;
                 hj1.limits = sjj;
+                hj1.breakForce = Mathf.Infinity;
 
                 hj1.connectedBody = srb2;
             }
