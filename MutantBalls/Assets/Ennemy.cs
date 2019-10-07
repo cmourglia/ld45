@@ -20,6 +20,11 @@ public class Ennemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_target != null && !_target.IsAlive)
+        {
+            _target = null;
+        }
+
         if (Time.time - _lastTime >= reactionTimeSeconds)
         {
             // detect
