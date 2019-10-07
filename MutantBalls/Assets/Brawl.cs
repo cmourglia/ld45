@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Brawl : MonoBehaviour
 {
     public Blob Player;
     public Copulate CopulateManager;
+    public Text Instructions;
 
     void Awake()
     {
@@ -22,6 +24,8 @@ public class Brawl : MonoBehaviour
         {
             hurter.Enabled = true;
         }
+
+        this.Instructions.text = "brawl!";
     }
 
     void OnDisable()
