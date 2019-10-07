@@ -35,6 +35,14 @@ public class Tentaculator : MonoBehaviour
         _hinges.ForEach(Destroy);
     }
 
+    public void DestroyInSeconds(float seconds)
+    {
+        foreach (var arm in _armNodes)
+        {
+            Object.Destroy(arm, seconds);
+        }
+    }
+
     public void makeArms()
     {
         _armNodes.ForEach(Destroy);

@@ -76,6 +76,7 @@ public class Blob : MonoBehaviour
         if (this.currentHP <= 0)
         {
             this.IsAlive = false;
+            GetComponent<Tentaculator>().DestroyInSeconds(2.0f);
             this.gameObject.SetActive(false);
         }
     }
