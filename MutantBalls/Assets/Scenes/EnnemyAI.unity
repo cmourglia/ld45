@@ -147,6 +147,26 @@ PrefabInstance:
       propertyPath: Color.b
       value: 0.3537736
       objectReference: {fileID: 0}
+    - target: {fileID: -7682289426112595464, guid: a62e1280c9c6a4140bc96b54d5d8dd4d,
+        type: 3}
+      propertyPath: AppendixUp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: -7682289426112595464, guid: a62e1280c9c6a4140bc96b54d5d8dd4d,
+        type: 3}
+      propertyPath: AppendixRight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -7682289426112595464, guid: a62e1280c9c6a4140bc96b54d5d8dd4d,
+        type: 3}
+      propertyPath: AppendixDown
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -7682289426112595464, guid: a62e1280c9c6a4140bc96b54d5d8dd4d,
+        type: 3}
+      propertyPath: AppendixLeft
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6230321842675834900, guid: a62e1280c9c6a4140bc96b54d5d8dd4d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -343,6 +363,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ennemy
+      objectReference: {fileID: 0}
+    - target: {fileID: -7682289426112595464, guid: a62e1280c9c6a4140bc96b54d5d8dd4d,
+        type: 3}
+      propertyPath: AppendixUp
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -7682289426112595464, guid: a62e1280c9c6a4140bc96b54d5d8dd4d,
+        type: 3}
+      propertyPath: AppendixRight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -7682289426112595464, guid: a62e1280c9c6a4140bc96b54d5d8dd4d,
+        type: 3}
+      propertyPath: AppendixDown
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -7682289426112595464, guid: a62e1280c9c6a4140bc96b54d5d8dd4d,
+        type: 3}
+      propertyPath: AppendixLeft
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6230321842675834900, guid: a62e1280c9c6a4140bc96b54d5d8dd4d,
         type: 3}
