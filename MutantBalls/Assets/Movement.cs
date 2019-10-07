@@ -19,6 +19,20 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Brake
+        if (Input.GetKey(KeyCode.F))
+        {
+            // Forward dash
+            rb.bodyType = RigidbodyType2D.Kinematic;
+            rb.velocity *= 0.0f;
+            return;
+        }
+        else if (rb.bodyType == RigidbodyType2D.Kinematic)
+        {
+            rb.bodyType = RigidbodyType2D.Dynamic;
+            return;
+        }
+
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
 
@@ -26,7 +40,15 @@ public class Movement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.R))
         {
-            rb.angularVelocity += 1560.0f;
+            rb.angularVelocity += 2000.0f;
         }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            // Forward dash
+            rb.velocity *= 20.0f;
+        }
+
+
     }
 }
