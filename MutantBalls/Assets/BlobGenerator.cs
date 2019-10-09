@@ -22,7 +22,7 @@ public class BlobGenerator : MonoBehaviour
             this.Blobs = new List<Blob>();
             for (var i = 0; i < nbBlobs; i++)
             {
-                var blobGo = Instantiate(this.BlobPrefab, new Vector3(Random.Range(area.min.x, area.max.x), Random.Range(area.min.y, area.max.y), 0), Quaternion.identity);
+                var blobGo = Instantiate(this.BlobPrefab, Vector3.zero, Quaternion.identity);
                 var blob = blobGo.GetComponent<Blob>();
                 blob.IsAlive = false; // so they can be generated
                 this.Blobs.Add(blob);
@@ -31,9 +31,11 @@ public class BlobGenerator : MonoBehaviour
 
         foreach (var blob in this.Blobs)
         {
+            this.RandomizePosition(blob);
             if (blob.IsAlive)
             {
                 blob.Heal();
+                blob.MakeArms();
                 continue;
             }
 
@@ -49,5 +51,13 @@ public class BlobGenerator : MonoBehaviour
             blob.MakeArms();
             blob.gameObject.SetActive(true);
         }
+    }
+
+    public void RandomizePosition(Blob blob)
+    {
+        blob.transform.position = new Vector3(
+            Random.Range(area.min.x, area.max.x),
+            Random.Range(area.min.y, area.max.y),
+            0);
     }
 }
