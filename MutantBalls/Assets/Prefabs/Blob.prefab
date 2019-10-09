@@ -161,6 +161,7 @@ MonoBehaviour:
   armDepths: 03000000030000000300000003000000
   subNodePrefab: {fileID: 4886585544540095308, guid: e6241b21fce926d4391036dfbb901570,
     type: 3}
+  RootColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &7859942597373234819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,7 +174,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f64b9e0f746b9f45944951d9118fcab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reactionTimeSeconds: 2
+  reactionTimeSeconds: 3
+  reactionTimeFleeingTarget: 0.5
 --- !u!114 &-2863557604812302877
 MonoBehaviour:
   m_ObjectHideFlags: 0

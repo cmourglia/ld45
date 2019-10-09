@@ -14,6 +14,8 @@ public class Brawl : MonoBehaviour
 
     private Blob[] blobs;
 
+    private float startTime;
+    private bool started;
     private float copulateTimer;
     private bool copulateTimerStarted;
 
@@ -31,10 +33,12 @@ public class Brawl : MonoBehaviour
         Utils.SetAllMBEnabled<HurtBlobs>(true);
         Utils.SetAllMBEnabled<Ennemy>(true);
 
-        this.Instructions.text = "brawl!";
-
-        blobs = Object.FindObjectsOfType<Blob>();
         copulateTimerStarted = false;
+        blobs = Object.FindObjectsOfType<Blob>();
+
+        this.Player.GetComponent<Movement>().enabled = false;
+        this.startTime = Time.time + 3;
+        this.started = false;
     }
 
     void OnDisable()
@@ -45,6 +49,19 @@ public class Brawl : MonoBehaviour
 
     void Update()
     {
+        if (Time.time < startTime)
+        {
+            this.Instructions.text = (startTime - Time.time).ToString("F");
+            return;
+        }
+
+        if (!this.started)
+        {
+            this.Player.GetComponent<Movement>().enabled = true;
+            this.Instructions.text = "brawl!";
+            this.started = true;
+        }
+
         if (!this.Player.IsAlive)
         {
             this.Instructions.text = "loser.";

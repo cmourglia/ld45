@@ -530,6 +530,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &563707157 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6230321842675834898, guid: a62e1280c9c6a4140bc96b54d5d8dd4d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1751273560}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &563707160
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 563707157}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &673067443
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,6 +605,7 @@ MonoBehaviour:
   MateSelector: {fileID: 1059738047}
   Instructions: {fileID: 765033951}
   LoopNumber: {fileID: 1564201064}
+  SelectPopup: {fileID: 913622623}
 --- !u!114 &673067446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1171,6 +1199,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &986715904 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6230321842675834898, guid: a62e1280c9c6a4140bc96b54d5d8dd4d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1439854953}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &986715907
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986715904}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1059738043
 GameObject:
   m_ObjectHideFlags: 0
@@ -1249,7 +1304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 819975978}
   TargetAim: {fileID: 1258835073}
-  SelectPopup: {fileID: 913622623}
+  Copulate: {fileID: 673067445}
 --- !u!50 &1059738048
 Rigidbody2D:
   serializedVersion: 4
@@ -1376,7 +1431,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1751273560}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 563707157}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b68a4ee4adcf5114d851ea6036139f07, type: 3}
@@ -1535,7 +1590,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1439854953}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 986715904}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b68a4ee4adcf5114d851ea6036139f07, type: 3}
@@ -1594,6 +1649,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1544205847 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6230321842675834898, guid: a62e1280c9c6a4140bc96b54d5d8dd4d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1932674918}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &1544205850
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544205847}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1564201062
 GameObject:
   m_ObjectHideFlags: 0
@@ -1927,7 +2009,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1932674918}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1544205847}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b68a4ee4adcf5114d851ea6036139f07, type: 3}

@@ -7,7 +7,7 @@ public class MateSelector : MonoBehaviour
 {
     public GameObject Player;
     public GameObject TargetAim;
-    public CopulatePopup SelectPopup;
+    public Copulate Copulate;
 
     private Collider2D playerCollider;
     private Collider2D collider;
@@ -51,15 +51,8 @@ public class MateSelector : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            var playerBlob = this.Player.GetComponent<Blob>();
-            var child = this.SelectPopup.Show(playerBlob, target);
-
-            child.CopyTo(playerBlob);
-            playerBlob.Heal(); // set currentHP to newHP value
-
-            Utils.SetAllMBEnabled<FindMate>(false);
-
             this.gameObject.SetActive(false);
+            this.Copulate.SelectMate(target);
         }
     }
 }
