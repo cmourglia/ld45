@@ -48,6 +48,7 @@ public class Blob : MonoBehaviour
             this.AppendixDown,
             this.AppendixLeft,
         };
+        tentaculator.RootColor = this.Color;
         tentaculator.makeArms();
     }
 

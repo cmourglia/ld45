@@ -9,6 +9,7 @@ public class Tentaculator : MonoBehaviour
     public int arms = 4;
     public int[] armDepths = new int[] { 3, 3, 3, 3 };
     public GameObject subNodePrefab;
+    public Color RootColor = Color.red;
 
     private static PrefabPool pool = new PrefabPool();
 
@@ -63,6 +64,8 @@ public class Tentaculator : MonoBehaviour
 
         var rb = GetComponent<Rigidbody2D>();
 
+        var targetColor = Color.white;
+
         // Instantiate enough hinges
         var hinges = this.GetComponents<HingeJoint2D>().ToList();
         for (int i = hinges.Count; i < arms; ++i)
@@ -86,7 +89,7 @@ public class Tentaculator : MonoBehaviour
             rootNode.transform.rotation = Quaternion.identity;
             _armNodes.Add(rootNode);
 
-            rootNode.GetComponent<SpriteRenderer>().color = Color.red;
+            rootNode.GetComponent<SpriteRenderer>().color = Color.Lerp(this.RootColor, targetColor, .2f);
 
             var armHJ = hinges[i];
             configureHingeJoint(armHJ, rootNode.GetComponent<Rigidbody2D>(), 0f, 0f);
@@ -99,7 +102,7 @@ public class Tentaculator : MonoBehaviour
                 var sno = pool.GetInstance(subNodePrefab);
                 sno.transform.position = pos + (j + 1) * 2.0f * sradius * dir.normalized /** scale / 5*/;
                 sno.transform.rotation = Quaternion.identity;
-                sno.GetComponent<SpriteRenderer>().color = Color.white;
+                sno.GetComponent<SpriteRenderer>().color = Color.Lerp(this.RootColor, targetColor, .4f + (j * .2f));
                 snodes.Add(sno);
                 _armNodes.Add(sno);
             }
@@ -129,7 +132,7 @@ public class Tentaculator : MonoBehaviour
         }
     }
 
-    private static void configureHingeJoint(HingeJoint2D joint, Rigidbody2D connectedBody, float min = -25f, float max = 25f)
+    private static void configureHingeJoint(HingeJoint2D joint, Rigidbody2D connectedBody, float min = -10, float max = 10f)
     {
         joint.limits = new JointAngleLimits2D()
         {
