@@ -63,6 +63,7 @@ public class Tentaculator : MonoBehaviour
 
         var rb = GetComponent<Rigidbody2D>();
 
+        // Instantiate enough hinges
         var hinges = this.GetComponents<HingeJoint2D>().ToList();
         for (int i = hinges.Count; i < arms; ++i)
         {
@@ -76,29 +77,19 @@ public class Tentaculator : MonoBehaviour
             if (armDepths.Length < i + 1) { break; }
             var armDepth = armDepths[i];
 
-            var hj = hinges[i];
-            hj.enabled = true;
-
             // Instantiate sub arm first node
-            var dir = GetDirection(i);
+            var dir = getDirection(i);
             var pos = this.transform.position + dir * scale;
 
-            var no = pool.GetInstance(subNodePrefab);
-            no.transform.position = pos;
-            no.transform.rotation = Quaternion.identity;
-            _armNodes.Add(no);
+            var rootNode = pool.GetInstance(subNodePrefab);
+            rootNode.transform.position = pos;
+            rootNode.transform.rotation = Quaternion.identity;
+            _armNodes.Add(rootNode);
 
-            var rb2 = no.GetComponent<Rigidbody2D>();
-            no.GetComponent<SpriteRenderer>().color = Color.red;
+            rootNode.GetComponent<SpriteRenderer>().color = Color.red;
 
-            hj.connectedBody = rb2;
-            hj.useLimits = true;
-            hj.breakForce = Mathf.Infinity;
-
-            var jj = new JointAngleLimits2D();
-            jj.min = 0.0f;
-            jj.max = 0.0f;
-            hj.limits = jj;
+            var armHJ = hinges[i];
+            configureHingeJoint(armHJ, rootNode.GetComponent<Rigidbody2D>(), 0f, 0f);
 
             // Add sub arms
             var snodes = new List<GameObject>(armDepth);
@@ -113,58 +104,45 @@ public class Tentaculator : MonoBehaviour
                 _armNodes.Add(sno);
             }
 
-            var phj = no.GetComponent<HingeJoint2D>();
-            // Join first joint with first sub arm
-            if (armDepth == 0)
+            var phj = rootNode.GetComponent<HingeJoint2D>();
+            if (armDepth <= 0)
             {
                 phj.enabled = false;
+                break;
             }
-            else
-            {
-                phj.enabled = true;
-                phj.useLimits = true;
-                phj.breakForce = Mathf.Infinity;
 
-                var sno = snodes[0];
-                var srb = sno.GetComponent<Rigidbody2D>();
-
-                var sjj = new JointAngleLimits2D();
-                sjj.min = -25.0f;
-                sjj.max = 25.0f;
-                phj.limits = sjj;
-
-                phj.connectedBody = srb;
-            }
+            // Join first joint with first sub arm
+            configureHingeJoint(phj, snodes.First().GetComponent<Rigidbody2D>());
 
             // Connect sub arms with each other
             for (int j = 1; j < armDepth; ++j)
             {
-                var sno1 = snodes[j - 1];
-                var sno2 = snodes[j];
-
-                var hj1 = sno1.GetComponent<HingeJoint2D>();
-                var srb2 = sno2.GetComponent<Rigidbody2D>();
-
-                var sjj = new JointAngleLimits2D();
-                sjj.min = -25.0f;
-                sjj.max = 25.0f;
-
-                hj1.limits = sjj;
-                hj1.breakForce = Mathf.Infinity;
-                hj1.connectedBody = srb2;
-                hj1.enabled = true;
-
-                // just to be safe
-                var hj2 = sno2.GetComponent<HingeJoint2D>();
-                hj2.connectedBody = null;
-                hj2.enabled = false;
+                var previousNode = snodes[j - 1];
+                var node = snodes[j];
+                configureHingeJoint(previousNode.GetComponent<HingeJoint2D>(), node.GetComponent<Rigidbody2D>());
             }
+
+            // just to be safe
+            var lastHJ = snodes.Last().GetComponent<HingeJoint2D>();
+            lastHJ.connectedBody = null;
+            lastHJ.enabled = false;
         }
-
-
     }
 
-    static Vector3 GetDirection(int i)
+    private static void configureHingeJoint(HingeJoint2D joint, Rigidbody2D connectedBody, float min = -25f, float max = 25f)
+    {
+        joint.limits = new JointAngleLimits2D()
+        {
+            min = min,
+            max = max,
+        };
+        joint.useLimits = true;
+        joint.breakForce = Mathf.Infinity;
+        joint.connectedBody = connectedBody;
+        joint.enabled = true;
+    }
+
+    private static Vector3 getDirection(int i)
     {
         return i == 0 ? new Vector3(1, 0, 0) :
                i == 1 ? new Vector3(0, 1, 0) :
