@@ -47,6 +47,19 @@ public class Brawl : MonoBehaviour
         Utils.SetAllMBEnabled<Ennemy>(false);
     }
 
+    void FixedUpdate()
+    {
+        if (!this.started)
+        {
+            foreach (var blob in blobs)
+            {
+                var rb = blob.GetComponent<Rigidbody2D>();
+                rb.velocity = Vector3.zero;
+                rb.angularVelocity = 0;
+            }
+        }
+    }
+
     void Update()
     {
         if (Time.time < startTime)

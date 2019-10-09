@@ -36,6 +36,19 @@ public class Copulate : MonoBehaviour
         this.started = false;
     }
 
+    void FixedUpdate()
+    {
+        if (!this.started)
+        {
+            foreach (var blob in Object.FindObjectsOfType<Blob>())
+            {
+                var rb = blob.GetComponent<Rigidbody2D>();
+                rb.velocity = Vector3.zero;
+                rb.angularVelocity = 0;
+            }
+        }
+    }
+
     void Update()
     {
         if (Time.time < startTime)
