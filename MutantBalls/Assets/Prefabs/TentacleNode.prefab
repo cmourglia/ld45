@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -1149923675583505431}
   - component: {fileID: -716302553182517808}
   - component: {fileID: 3505293446501839657}
+  - component: {fileID: 3096579475082577846}
   m_Layer: 0
   m_Name: TentacleNode
   m_TagString: Untagged
@@ -134,3 +135,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 1
   Enabled: 0
+--- !u!233 &3096579475082577846
+HingeJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4886585544540095308}
+  m_Enabled: 0
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_UseMotor: 0
+  m_Motor:
+    m_MotorSpeed: 0
+    m_MaximumMotorForce: 10000
+  m_UseLimits: 0
+  m_AngleLimits:
+    m_LowerAngle: 0
+    m_UpperAngle: 359

@@ -5,7 +5,6 @@ using UnityEngine;
 public class HurtBlobs : MonoBehaviour
 {
     public int Damage = 1;
-    public bool Enabled;
 
     public bool isHingedJointWith(Blob theBlob, GameObject root)
     {
@@ -32,11 +31,14 @@ public class HurtBlobs : MonoBehaviour
         var hjs = source.GetComponents<HingeJoint2D>();
         foreach (HingeJoint2D hj in hjs)
         {
-            var cg = hj.connectedBody.gameObject;
+            var cg = hj.connectedBody?.gameObject;
+            if (cg == null) { continue; }
+
             if (cg == this.gameObject)
             {
                 return true;
             }
+
             var connected = _findThisInConnectedBodies(cg);
             if (connected)
             {
@@ -53,7 +55,7 @@ public class HurtBlobs : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (!this.Enabled) { return; }
+        if (!this.enabled) { return; }
 
         var b = other.gameObject.GetComponent<Blob>();
 

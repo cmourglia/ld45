@@ -28,14 +28,8 @@ public class Brawl : MonoBehaviour
         this.Player.Heal();
         this.Player.MakeArms();
 
-        foreach (var hurter in Object.FindObjectsOfType<HurtBlobs>())
-        {
-            hurter.Enabled = true;
-        }
-        foreach (var mb in Object.FindObjectsOfType<Ennemy>())
-        {
-            mb.enabled = true;
-        }
+        Utils.SetAllMBEnabled<HurtBlobs>(true);
+        Utils.SetAllMBEnabled<Ennemy>(true);
 
         this.Instructions.text = "brawl!";
 
@@ -45,14 +39,8 @@ public class Brawl : MonoBehaviour
 
     void OnDisable()
     {
-        foreach (var hurter in Object.FindObjectsOfType<HurtBlobs>())
-        {
-            hurter.Enabled = false;
-        }
-        foreach (var mb in Object.FindObjectsOfType<Ennemy>())
-        {
-            mb.enabled = false;
-        }
+        Utils.SetAllMBEnabled<HurtBlobs>(false);
+        Utils.SetAllMBEnabled<Ennemy>(false);
     }
 
     void Update()
