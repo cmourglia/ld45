@@ -606,6 +606,7 @@ MonoBehaviour:
   Instructions: {fileID: 765033951}
   LoopNumber: {fileID: 1564201064}
   SelectPopup: {fileID: 913622623}
+  Background: {fileID: 138951562}
 --- !u!114 &673067446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1634,6 +1635,7 @@ MonoBehaviour:
   Player: {fileID: 819975985}
   CopulateManager: {fileID: 673067445}
   Instructions: {fileID: 765033951}
+  Background: {fileID: 138951562}
   MaxAliveBlobs: 0
 --- !u!4 &1510200344
 Transform:

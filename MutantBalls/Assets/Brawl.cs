@@ -9,6 +9,7 @@ public class Brawl : MonoBehaviour
     public Blob Player;
     public Copulate CopulateManager;
     public Text Instructions;
+    public SpriteRenderer Background;
 
     public int MaxAliveBlobs;
 
@@ -26,6 +27,8 @@ public class Brawl : MonoBehaviour
 
     void OnEnable()
     {
+        this.Background.color = new Color(0xFF / 255f, 0xCA / 255f, 0xB8 / 255f, 1);
+
         // should probably not be here
         this.Player.Heal();
         this.Player.MakeArms();

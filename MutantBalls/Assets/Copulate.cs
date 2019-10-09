@@ -11,6 +11,7 @@ public class Copulate : MonoBehaviour
     public Text Instructions;
     public Text LoopNumber;
     public CopulatePopup SelectPopup;
+    public SpriteRenderer Background;
 
     private int loopNumber = 0;
     private float startTime;
@@ -18,6 +19,8 @@ public class Copulate : MonoBehaviour
 
     void OnEnable()
     {
+        this.Background.color = new Color(0xE5 / 255f, 0xFF / 255f, 0xF3 / 255f, 1);
+
         this.Player.Heal();
         // should probably not be here
         this.Player.MakeArms();
