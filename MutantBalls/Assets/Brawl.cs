@@ -33,9 +33,6 @@ public class Brawl : MonoBehaviour
         this.Player.Heal();
         this.Player.MakeArms();
 
-        Utils.SetAllMBEnabled<HurtBlobs>(true);
-        Utils.SetAllMBEnabled<Ennemy>(true);
-
         copulateTimerStarted = false;
         blobs = Object.FindObjectsOfType<Blob>();
 
@@ -73,6 +70,8 @@ public class Brawl : MonoBehaviour
 
         if (!this.started)
         {
+            Utils.SetAllMBEnabled<HurtBlobs>(true);
+            Utils.SetAllMBEnabled<Ennemy>(true);
             this.Player.GetComponent<Movement>().enabled = true;
             this.Instructions.text = "brawl!";
             this.started = true;
